@@ -23,7 +23,6 @@ interface SupportPixPageProps {
   pixConfigOverride?: PixRecipientConfig;
   onNavigateToRoute: (route: AppRouteView) => void;
   onStartEditor: () => void;
-  onPreviewAdBlockModal?: () => void;
 }
 
 /**
@@ -40,7 +39,6 @@ export const SupportPixPage: React.FC<SupportPixPageProps> = ({
   pixConfigOverride,
   onNavigateToRoute,
   onStartEditor,
-  onPreviewAdBlockModal,
 }) => {
   const activePixConfig = pixConfigOverride ?? SITE_CONFIG.pix;
 
@@ -280,16 +278,6 @@ export const SupportPixPage: React.FC<SupportPixPageProps> = ({
               </div>
 
               <div className="flex flex-wrap items-center gap-3">
-                {onPreviewAdBlockModal && (
-                  <button
-                    type="button"
-                    onClick={onPreviewAdBlockModal}
-                    className="text-xs font-mono text-ink-muted hover:text-vermilion underline underline-offset-4"
-                  >
-                    Ver aviso sobre anúncios
-                  </button>
-                )}
-
                 <button
                   type="button"
                   onClick={onStartEditor}
@@ -319,9 +307,9 @@ export const SupportPixPage: React.FC<SupportPixPageProps> = ({
                     </div>
                   </div>
                   <div className="text-right font-mono text-[10px] text-ink-muted">
-                    <div>PADRÃO BCB · BR CODE</div>
+                    <div>PAGAMENTO VIA PIX</div>
                     <div className="text-vermilion font-semibold">
-                      CRC16: {pixArtifact.crc16}
+                      100% VOLUNTÁRIO
                     </div>
                   </div>
                 </div>
@@ -331,9 +319,9 @@ export const SupportPixPage: React.FC<SupportPixPageProps> = ({
                   <div className="w-full flex items-center justify-between font-mono text-[10px] text-ink-subtle uppercase tracking-wider mb-3">
                     <span className="inline-flex items-center gap-1 text-ink font-semibold">
                       <QrCode className="w-3.5 h-3.5 text-vermilion" aria-hidden="true" />
-                      QR CODE PIX OFICIAL
+                      QR CODE PIX
                     </span>
-                    <span>VALOR: R$ {pixArtifact.amount.toFixed(2)}</span>
+                    <span>{pixArtifact.formattedAmountBRL}</span>
                   </div>
 
                   <div className="p-3 border border-paper bg-sheet">
@@ -346,7 +334,7 @@ export const SupportPixPage: React.FC<SupportPixPageProps> = ({
                       aria-label={`QR Code Pix para pagamento de ${pixArtifact.formattedAmountBRL}`}
                       data-testid="pix-qrcode-svg"
                       data-qr-payload={pixArtifact.payload}
-                      data-qr-amount={pixArtifact.amount.toFixed(2)}
+                      data-qr-amount={pixArtifact.amount !== null ? pixArtifact.amount.toFixed(2) : 'livre'}
                     >
                       <rect
                         width={pixArtifact.qrMatrix.size + 4}
@@ -404,7 +392,7 @@ export const SupportPixPage: React.FC<SupportPixPageProps> = ({
                       Código Pix Copia e Cola
                     </label>
                     <span className="font-mono text-[10px] text-vermilion">
-                      EMV® QRCPS-MPM
+                      PRONTO PARA COLAR
                     </span>
                   </div>
 
@@ -496,8 +484,8 @@ export const SupportPixPage: React.FC<SupportPixPageProps> = ({
             )}
 
             <div className="mt-6 pt-3 border-t border-paper flex items-center justify-between font-mono text-[10px] text-ink-muted">
-              <span>SEM INTERMEDIÁRIOS · PIX DIRETO</span>
-              <span>ZERO CREDENCIAIS NO FRONTEND</span>
+              <span>PIX DIRETO NO APP DO BANCO</span>
+              <span>CONTRIBUIÇÃO VOLUNTÁRIA</span>
             </div>
           </div>
         </div>

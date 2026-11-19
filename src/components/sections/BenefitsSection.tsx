@@ -12,42 +12,42 @@ const BENEFITS_LIST: BenefitItem[] = [
   {
     number: '01',
     title: 'Criação gratuita',
-    specLabel: 'ACESSO PÚBLICO INTEGRAL · R$ 0,00',
+    specLabel: '100% GRATUITO · SEM PLANOS OCULTOS',
     description:
-      'Procurar emprego ou estágio não deveria exigir uma assinatura mensal. Todas as matrizes tipográficas, seções curriculares e ferramentas de composição do FOLIO são abertas e gratuitas.',
-    editorialNote: 'Sem planos ocultos ou bloqueio de exportação no último passo.',
+      'Procurar emprego ou estágio não deveria exigir uma assinatura mensal. Todos os modelos, seções curriculares e recursos de exportação do FOLIO são gratuitos.',
+    editorialNote: 'Sem cobrança surpresa nem bloqueio na hora de baixar o PDF.',
   },
   {
     number: '02',
     title: 'Sem necessidade de cadastro',
-    specLabel: 'ZERO FRICÇÃO · PRIVACIDADE POR PADRÃO',
+    specLabel: 'PRIVACIDADE · ACESSO IMEDIATO',
     description:
-      'Abra a página, escolha sua matriz e comece a escrever imediatamente. Não pedimos seu e-mail, senha ou telefone antes de permitir que você construa e baixe seu documento.',
-    editorialNote: 'Armazenamento local (LocalStorage) sob seu controle exclusivo.',
+      'Abra a página, escolha seu modelo e comece a preencher imediatamente. Não pedimos seu e-mail, senha ou cartão antes de liberar seu documento.',
+    editorialNote: 'Seus dados ficam salvos apenas no seu próprio navegador.',
   },
   {
     number: '03',
     title: 'Download em PDF',
-    specLabel: 'NORMA ISO 216 A4 · TEXTO SELECIONÁVEL',
+    specLabel: 'FORMATO A4 · PRONTO PARA IMPRIMIR',
     description:
-      'Geração de documentos em formato A4 (210 × 297 mm) prontos para envio digital ou impressão física, sem marcas d’água, rodapés promocionais ou perda de nitidez tipográfica.',
-    editorialNote: 'Estrutura textual limpa para leitura humana e sistemas ATS.',
+      'Geração de currículos em formato A4 (210 × 297 mm) prontos para envio por e-mail, portais de vagas ou impressão, sem marcas d’água e com texto nítido.',
+    editorialNote: 'Texto selecionável para leitura humana e sistemas de seleção (ATS).',
   },
   {
     number: '04',
     title: 'Modelos profissionais',
-    specLabel: 'DIREÇÃO DE ARTE SUÍÇA & EDITORIAL',
+    specLabel: 'DESIGN EDITORIAL · 5 OPÇÕES A4',
     description:
-      'Esqueça templates poluídos com barras de porcentagem arbitrárias ou gráficos sem significado. Nossas matrizes seguem princípios clássicos de design editorial, proporção e legibilidade.',
-    editorialNote: 'Três séries fundacionais: Essencial, Editorial e Clássico.',
+      'Esqueça templates poluídos com gráficos sem significado. Nossos modelos seguem princípios clássicos de organização, proporção e legibilidade.',
+    editorialNote: 'Cinco modelos: Essencial, Editorial, Clássico, Executivo e Técnico.',
   },
   {
     number: '05',
     title: 'Fácil personalização',
-    specLabel: 'COMPOSIÇÃO GUIADA · FOCO NO CONTEÚDO',
+    specLabel: 'EDIÇÃO EM TEMPO REAL · FOCO NO CONTEÚDO',
     description:
-      'Você foca na clareza das suas experiências, conquistas e formação acadêmica; o motor tipográfico cuida automaticamente das margens, alinhamentos, entrelinhas e quebras visuais.',
-    editorialNote: 'Troque entre modelos a qualquer momento sem precisar redigitar.',
+      'Você foca na clareza das suas experiências, conquistas e formação acadêmica enquanto o FOLIO cuida automaticamente das margens, alinhamentos e paginação.',
+    editorialNote: 'Troque entre os cinco modelos a qualquer momento sem redigitar.',
   },
 ];
 

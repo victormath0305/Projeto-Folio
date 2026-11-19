@@ -74,11 +74,6 @@ function resolveViewFromLocation(): AppRouteView {
     return 'not-found';
   }
 
-  const savedPrefs = storageService.loadPreferences();
-  if (savedPrefs.lastView === 'editor' && !pathname) {
-    return 'editor';
-  }
-
   return 'landing';
 }
 
@@ -174,7 +169,7 @@ export function App() {
 
     setActiveView('editor');
     if (typeof window !== 'undefined') {
-      window.history.pushState(null, '', '#editor');
+      window.history.pushState(null, '', '/editor');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
@@ -248,7 +243,9 @@ export function App() {
             {activeView === 'landing' && (
               <>
                 <HeroSection
+                  hasSavedResume={storageService.hasSavedResumeDraft()}
                   onOpenStartModal={handleOpenEditor}
+                  onContinueSavedResume={() => handleOpenEditor(preferences.selectedTemplateId)}
                   onInspectDocument={handleInspectDocument}
                 />
 
@@ -320,7 +317,6 @@ export function App() {
               <SupportPixPage
                 onNavigateToRoute={handleNavigateToRoute}
                 onStartEditor={() => handleOpenEditor()}
-                onPreviewAdBlockModal={() => setAdBlockModalOpen(true)}
               />
             )}
 

@@ -43,15 +43,15 @@ export const EditorHeader: React.FC<EditorHeaderProps> = ({
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-ivory/95 backdrop-blur-sm border-b border-ink">
-      {/* Faixa Técnica de Status, Progresso e Persistência Local */}
+    <header className="sm:sticky sm:top-0 z-40 bg-ivory/95 backdrop-blur-sm border-b border-ink">
+      {/* Faixa Superior de Status, Progresso e Salvamento */}
       <div className="border-b border-paper bg-ivory-warm/80 px-4 sm:px-6 py-1.5">
         <div className="mx-auto max-w-[1600px] flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono text-ink-muted">
           <div className="flex items-center gap-3">
             <span className="inline-flex items-center gap-1.5 text-ink font-semibold uppercase tracking-wider">
               <span className="h-1.5 w-1.5 bg-vermilion inline-block" aria-hidden="true" />
-              <span className="hidden sm:inline">MESA DE COMPOSIÇÃO CURRICULAR · A4</span>
-              <span className="sm:hidden">COMPOSITOR A4</span>
+              <span className="hidden sm:inline">EDITOR DE CURRÍCULO · FORMATO A4</span>
+              <span className="sm:hidden">EDITOR A4</span>
             </span>
             <span className="text-paper-dark">|</span>
             <span

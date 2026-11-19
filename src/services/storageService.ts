@@ -7,6 +7,13 @@ import {
 
 const PREFS_STORAGE_KEY = 'folio:workspace-preferences:v1';
 const RESUME_STORAGE_KEY = 'folio:resume-document:v1';
+export const POST_DOWNLOAD_SUPPORT_KEY = 'folio:post-download-support:v1';
+
+export interface PostDownloadSupportState {
+  status: 'dismissed' | 'evaluated';
+  rating?: number;
+  updatedAt: string;
+}
 
 const DEFAULT_PREFERENCES: WorkspacePreferences = {
   selectedTemplateId: 'editorial',
@@ -264,5 +271,67 @@ export const storageService = {
       }
     }
     return fresh;
+  },
+
+  hasSavedResumeDraft(): boolean {
+    if (typeof window === 'undefined') return false;
+    try {
+      const raw = window.localStorage.getItem(RESUME_STORAGE_KEY);
+      if (!raw) return false;
+      const doc = this.loadResumeDocument();
+      return !isResumeDocumentEmpty(doc);
+    } catch {
+      return false;
+    }
+  },
+
+  getPostDownloadSupportState(): PostDownloadSupportState | null {
+    if (typeof window === 'undefined') return null;
+    try {
+      const raw = window.localStorage.getItem(POST_DOWNLOAD_SUPPORT_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw) as Partial<PostDownloadSupportState>;
+      if (parsed.status === 'dismissed' || parsed.status === 'evaluated') {
+        return {
+          status: parsed.status,
+          rating: typeof parsed.rating === 'number' ? parsed.rating : undefined,
+          updatedAt: parsed.updatedAt || new Date().toISOString(),
+        };
+      }
+      return null;
+    } catch {
+      return null;
+    }
+  },
+
+  shouldShowPostDownloadSupportModal(): boolean {
+    return this.getPostDownloadSupportState() === null;
+  },
+
+  markPostDownloadSupportDismissed(): void {
+    if (typeof window === 'undefined') return;
+    try {
+      const state: PostDownloadSupportState = {
+        status: 'dismissed',
+        updatedAt: new Date().toISOString(),
+      };
+      window.localStorage.setItem(POST_DOWNLOAD_SUPPORT_KEY, JSON.stringify(state));
+    } catch {
+      // Silencia erros de armazenamento sem impedir o uso do site
+    }
+  },
+
+  markPostDownloadSupportEvaluated(rating?: number): void {
+    if (typeof window === 'undefined') return;
+    try {
+      const state: PostDownloadSupportState = {
+        status: 'evaluated',
+        rating,
+        updatedAt: new Date().toISOString(),
+      };
+      window.localStorage.setItem(POST_DOWNLOAD_SUPPORT_KEY, JSON.stringify(state));
+    } catch {
+      // Silencia erros de armazenamento sem impedir o uso do site
+    }
   },
 };

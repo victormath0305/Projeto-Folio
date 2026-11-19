@@ -172,7 +172,7 @@ describe('FOLIO — Fases 05 e 06: SEO Técnico, Páginas Legais, Segurança e F
     const footer = screen.getByRole('contentinfo');
     await user.click(
       within(footer).getByRole('link', {
-        name: /Página completa de Privacidade & LGPD/i,
+        name: /Política de Privacidade/i,
       })
     );
 
@@ -225,8 +225,9 @@ describe('FOLIO — Fases 05 e 06: SEO Técnico, Páginas Legais, Segurança e F
       })
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/Canal de e-mail institucional aguardando definição de publicação/i)
+      screen.getByText(/Canal direto de e-mail em estruturação/i)
     ).toBeInTheDocument();
+    expect(screen.queryByText(/VITE_CONTACT_EMAIL/i)).not.toBeInTheDocument();
   });
 
   it('6. Exibe a página 404 personalizada com noindex quando o usuário acessa uma rota inexistente e sanitiza photoUrl malicioso no LocalStorage', async () => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   ArrowLeft,
   ArrowRight,
@@ -38,6 +38,7 @@ import { ExperienceSectionForm } from './sections/ExperienceSectionForm';
 import { EducationCoursesSectionForm } from './sections/EducationCoursesSectionForm';
 import { SkillsLanguagesAdditionalForm } from './sections/SkillsLanguagesAdditionalForm';
 import { TemplateLibraryModal } from '../modals/TemplateLibraryModal';
+import { PostDownloadSupportModal } from '../modals/PostDownloadSupportModal';
 
 interface ResumeEditorViewProps {
   initialTemplateId: ResumeTemplateId;
@@ -78,10 +79,20 @@ export const ResumeEditorView: React.FC<ResumeEditorViewProps> = ({
     })
   );
 
-  // Estados de Exportação PDF (Fase 03)
+  // Estados de Exportação PDF e Modal Pós-Download
   const [isExportingPdf, setIsExportingPdf] = useState<boolean>(false);
   const [exportError, setExportError] = useState<string | null>(null);
   const [exportSuccessMessage, setExportSuccessMessage] = useState<string | null>(null);
+  const [postDownloadModalOpen, setPostDownloadModalOpen] = useState<boolean>(false);
+  const postDownloadTimerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (postDownloadTimerRef.current !== null) {
+        window.clearTimeout(postDownloadTimerRef.current);
+      }
+    };
+  }, []);
 
   // Salvamento automático no LocalStorage a cada alteração no documento
   useEffect(() => {
@@ -233,6 +244,18 @@ export const ResumeEditorView: React.FC<ResumeEditorViewProps> = ({
           artifact.pageCount === 1 ? 'página A4' : 'páginas A4'
         }).`
       );
+
+      // Após conclusão bem-sucedida do download, agenda abertura discreta do modal (~2s)
+      if (storageService.shouldShowPostDownloadSupportModal()) {
+        if (postDownloadTimerRef.current !== null) {
+          window.clearTimeout(postDownloadTimerRef.current);
+        }
+        postDownloadTimerRef.current = window.setTimeout(() => {
+          if (storageService.shouldShowPostDownloadSupportModal()) {
+            setPostDownloadModalOpen(true);
+          }
+        }, 2000);
+      }
     } catch (err) {
       const message =
         err instanceof Error
@@ -316,7 +339,7 @@ export const ResumeEditorView: React.FC<ResumeEditorViewProps> = ({
       )}
 
       {/* Barra de Alternância Mobile (Formulário vs Pré-visualização A4) */}
-      <div className="lg:hidden border-b border-ink bg-ivory-warm px-4 py-2 flex items-center gap-2 sticky top-[118px] z-30">
+      <div className="lg:hidden border-b border-ink bg-ivory-warm px-4 py-2 flex items-center gap-2 sticky top-0 sm:top-[104px] z-30">
         <button
           type="button"
           onClick={() => setMobileTab('form')}
@@ -367,12 +390,12 @@ export const ResumeEditorView: React.FC<ResumeEditorViewProps> = ({
             <div className="p-4 sm:p-8 lg:p-10 space-y-7">
               {/* Cabeçalho Editorial da Seção Ativa */}
               <div className="border-b border-ink pb-5">
-                <div className="flex items-center justify-between gap-2 mb-2">
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                   <span className="font-mono text-xs uppercase tracking-widest text-vermilion font-semibold">
-                    SEÇÃO {currentSectionMeta.number} DE 09 · DIAGRAMAÇÃO GUIADA
+                    SEÇÃO {currentSectionMeta.number} DE 09
                   </span>
                   <span className="font-mono text-[11px] text-ink-subtle">
-                    CAMPOS LIVRES &amp; NÃO-BLOQUEANTES
+                    PREENCHA NO SEU RITMO
                   </span>
                 </div>
 
@@ -508,6 +531,12 @@ export const ResumeEditorView: React.FC<ResumeEditorViewProps> = ({
         userDocument={document}
         onSelectTemplate={handleSelectTemplate}
         onClose={() => setTemplateLibraryOpen(false)}
+      />
+
+      {/* Modal: Avaliação e Apoio Voluntário Pós-Download */}
+      <PostDownloadSupportModal
+        isOpen={postDownloadModalOpen}
+        onClose={() => setPostDownloadModalOpen(false)}
       />
 
       {/* Modal de Confirmação Antes de Limpar Dados */}

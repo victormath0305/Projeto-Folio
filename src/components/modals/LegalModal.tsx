@@ -57,25 +57,25 @@ export const LegalModal: React.FC<LegalModalProps> = ({ type, onClose }) => {
           {isPrivacy ? (
             <>
               <h3 className="font-serif text-3xl text-ink">
-                Privacidade por Arquitetura (Local-First)
+                Privacidade e Armazenamento no Seu Navegador
               </h3>
               <p>
-                Um currículo contém informações pessoais sensíveis: histórico profissional, formação acadêmica, telefone, endereço de e-mail e cidade de residência. Por isso, o <strong className="text-ink">FOLIO</strong> foi projetado para operar diretamente no seu navegador.
+                Um currículo contém informações pessoais sensíveis: histórico profissional, formação acadêmica, telefone, e-mail e cidade de residência. Por isso, o <strong className="text-ink">FOLIO</strong> foi projetado para operar diretamente no seu navegador.
               </p>
               <div className="border-l-2 border-vermilion pl-4 py-1 text-ink font-medium">
                 Não possuímos banco de dados centralizado de candidatos, não exigimos criação de conta e não comercializamos dados pessoais.
               </div>
               <h4 className="font-mono text-xs uppercase tracking-wider text-ink font-semibold pt-2">
-                1. Armazenamento Local (LocalStorage)
+                1. Armazenamento Local e Exportação
               </h4>
               <p>
-                Os rascunhos e preferências de modelo são salvos exclusivamente no armazenamento local (<code className="font-mono text-xs bg-ivory-warm px-1.5 py-0.5 border border-paper">window.localStorage</code>) do dispositivo utilizado. Você pode limpar esses dados a qualquer momento nas configurações do seu navegador.
+                Seus rascunhos, preferências de modelo e fotografia opcional ficam salvos apenas no armazenamento local do dispositivo utilizado. Toda a montagem das páginas A4 e a geração do PDF acontecem no seu navegador.
               </p>
               <h4 className="font-mono text-xs uppercase tracking-wider text-ink font-semibold pt-2">
-                2. Processamento e Exportação
+                2. Estatísticas e Publicidade em Páginas Públicas
               </h4>
               <p>
-                Toda a composição tipográfica e geração da folha A4 ocorre localmente no seu computador ou smartphone, garantindo sigilo integral durante sua busca por emprego ou recolocação.
+                Utilizamos o Vercel Web Analytics (sem cookies) para estatísticas agregadas de acesso. Nas páginas públicas informativas (nunca dentro do editor), o Google AdSense pode utilizar cookies publicitários conforme a preferência de consentimento definida na página de Privacidade.
               </p>
             </>
           ) : (
@@ -84,19 +84,19 @@ export const LegalModal: React.FC<LegalModalProps> = ({ type, onClose }) => {
                 Termos de Uso &amp; Compromisso de Gratuidade
               </h3>
               <p>
-                O <strong className="text-ink">FOLIO</strong> é uma ferramenta pública e gratuita voltada à criação e formatação de currículos profissionais em padrão A4.
+                O <strong className="text-ink">FOLIO</strong> é uma ferramenta pública e gratuita voltada à criação e formatação de currículos profissionais em formato A4.
               </p>
               <h4 className="font-mono text-xs uppercase tracking-wider text-ink font-semibold pt-2">
-                1. Licença de Uso dos Modelos Tipográficos
+                1. Licença de Uso dos Cinco Modelos Profissionais
               </h4>
               <p>
-                Todos os documentos gerados por meio das matrizes <strong>Essencial</strong>, <strong>Editorial</strong> e <strong>Clássico</strong> pertencem integralmente ao usuário autor das informações, podendo ser impressos, enviados por e-mail ou anexados em plataformas de recrutamento sem qualquer restrição ou atribuição obrigatória.
+                Todos os documentos gerados nos modelos <strong>Essencial</strong>, <strong>Editorial</strong>, <strong>Clássico</strong>, <strong>Executivo</strong> e <strong>Técnico</strong> pertencem integralmente ao usuário autor das informações, podendo ser impressos, enviados por e-mail ou anexados em plataformas de recrutamento sem restrições.
               </p>
               <h4 className="font-mono text-xs uppercase tracking-wider text-ink font-semibold pt-2">
                 2. Ausência de Marcas D’Água e Cobranças Ocultas
               </h4>
               <p>
-                Comprometemo-nos a manter a geração e exportação dos modelos fundacionais livre de marcas d’água promocionais ou bloqueios de pagamento ao final do preenchimento.
+                Mantemos a criação e exportação dos cinco modelos livre de marcas d’água promocionais ou bloqueios de pagamento ao final do preenchimento.
               </p>
               <h4 className="font-mono text-xs uppercase tracking-wider text-ink font-semibold pt-2">
                 3. Responsabilidade Editorial

@@ -45,6 +45,8 @@ export const SITE_CONFIG = {
   gaMeasurementId: (env.VITE_GA_MEASUREMENT_ID || '').trim(),
   /** Token de verificação do Google Search Console (vazio por padrão) */
   gscVerificationToken: (env.VITE_GSC_VERIFICATION_TOKEN || '').trim(),
+  /** Endpoint opcional para recebimento de avaliações/sugestões (vazio por padrão — sem serviço inventado) */
+  feedbackEndpointUrl: (env.VITE_FEEDBACK_ENDPOINT_URL || '').trim(),
 
   /**
    * Configuração do Google AdSense & Ad Blocking Recovery (Fase 07 — Seções 2 e 3)
@@ -77,5 +79,5 @@ export const SITE_CONFIG = {
   } satisfies PixRecipientConfig,
 
   /** Versão da aplicação */
-  version: '1.2.0-rc.1',
+  version: '1.0.0',
 } as const;

@@ -103,8 +103,8 @@ export const TemplatesSection: React.FC<TemplatesSectionProps> = ({
                   {/* Berço do Documento A4 (Exibição como Folha Impressa, não card genérico) */}
                   <div className="relative bg-ivory-warm/75 paper-grid-bg px-5 sm:px-7 py-6 border-b border-paper group">
                     <div className="mb-2 flex items-center justify-between font-mono text-[10px] text-ink-subtle uppercase tracking-wider">
-                      <span>PROVA {item.shortCode} · {item.id.toUpperCase()}</span>
-                      <span>210 × 297 MM</span>
+                      <span>PRÉVIA DO MODELO</span>
+                      <span>A4 · 210 × 297 MM</span>
                     </div>
 
                     <div
@@ -221,6 +221,38 @@ export const TemplatesSection: React.FC<TemplatesSectionProps> = ({
               </article>
             );
           })}
+
+          {/* 6º Bloco Editorial para fechar a grade de 3 colunas no desktop com orientação prática */}
+          <aside className="flex flex-col justify-between bg-ivory-warm/45 border-b border-r border-ink/80 p-6 sm:p-8">
+            <div className="space-y-4">
+              <div className="font-mono text-[11px] uppercase tracking-widest text-vermilion font-medium">
+                ORIENTAÇÃO RÁPIDA
+              </div>
+              <h3 className="font-serif text-3xl sm:text-4xl text-ink tracking-tight leading-[1.06]">
+                Não sabe qual modelo escolher?
+              </h3>
+              <p className="text-sm text-ink-muted leading-relaxed">
+                Comece por qualquer um dos cinco modelos. Todos compartilham os mesmos campos e você pode alternar entre <strong>Essencial</strong>, <strong>Editorial</strong>, <strong>Clássico</strong>, <strong>Executivo</strong> e <strong>Técnico</strong> com um clique, sem perder nada do que escreveu.
+              </p>
+              <div className="border-l-2 border-vermilion pl-3.5 text-xs text-ink leading-relaxed">
+                Dica: para primeiro emprego, estágio ou processos seletivos automatizados (ATS), o modelo <strong>Essencial</strong> é um excelente ponto de partida.
+              </div>
+            </div>
+
+            <div className="mt-8 pt-4 border-t border-paper">
+              <button
+                type="button"
+                onClick={() => {
+                  onSelectTemplate('essencial');
+                  onOpenStartModal('essencial');
+                }}
+                className="w-full btn-editorial-primary py-3 px-4 text-xs sm:text-sm"
+              >
+                <span>Começar pelo modelo Essencial</span>
+                <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+              </button>
+            </div>
+          </aside>
         </div>
       </div>
     </section>

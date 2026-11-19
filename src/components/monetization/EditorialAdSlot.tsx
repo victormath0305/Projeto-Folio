@@ -63,8 +63,7 @@ export const EditorialAdSlot: React.FC<EditorialAdSlotProps> = ({
     >
       <div className="border border-paper bg-ivory-warm/35 p-3">
         <div className="flex items-center justify-between font-mono text-[9.5px] uppercase tracking-widest text-ink-subtle mb-2">
-          <span>PUBLICIDADE · APOIO À GRATUIDADE DO FOLIO</span>
-          <span>ESPAÇO RESERVADO (ZERO CLS)</span>
+          <span>PUBLICIDADE</span>
         </div>
 
         {/* Container com altura mínima reservada para evitar Cumulative Layout Shift (CLS) */}

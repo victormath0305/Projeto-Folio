@@ -56,68 +56,55 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({
                   01
                 </span>
                 <span className="font-mono text-[11px] uppercase tracking-widest text-ink-muted">
-                  FASE I · ARQUITETURA
+                  ESCOLHA DO MODELO
                 </span>
               </div>
 
               <h3 className="font-serif text-3xl text-ink tracking-tight mb-3">
-                01 — Escolha um modelo.
+                Escolha um modelo.
               </h3>
               <p className="text-sm text-ink-muted leading-relaxed mb-6">
-                Selecione entre as matrizes <strong>Essencial</strong>, <strong>Editorial</strong> ou <strong>Clássico</strong> de acordo com a sua área de atuação e momento de carreira.
+                Selecione entre os cinco modelos profissionais — <strong>Essencial</strong>, <strong>Editorial</strong>, <strong>Clássico</strong>, <strong>Executivo</strong> ou <strong>Técnico</strong> — de acordo com a sua área e momento de carreira.
               </p>
             </div>
 
-            {/* Esquema Visual 01: Seleção de Matriz A4 */}
+            {/* Esquema Visual 01: Seleção entre 5 Modelos A4 */}
             <div
               className="border border-ink bg-ivory-warm/70 p-4 paper-grid-bg min-h-[168px] flex flex-col justify-between"
               aria-hidden="true"
             >
               <div className="font-mono text-[9px] uppercase tracking-widest text-ink-subtle mb-3 flex justify-between">
-                <span>ESQUEMA 01 · SELEÇÃO DE GRADE</span>
-                <span className="text-vermilion">3 OPÇÕES</span>
+                <span>ESCOLHA VISUAL A4</span>
+                <span className="text-vermilion">5 MODELOS</span>
               </div>
-              <div className="grid grid-cols-3 gap-2.5">
-                {/* Miniatura Essencial */}
-                <div className="bg-sheet border border-paper p-2 aspect-[210/297] flex flex-col justify-between opacity-75">
-                  <div className="space-y-1">
-                    <div className="h-1.5 w-3/4 bg-ink" />
-                    <div className="h-[1px] w-full bg-paper" />
-                    <div className="h-1 w-full bg-paper/70" />
-                    <div className="h-1 w-5/6 bg-paper/70" />
-                  </div>
-                  <span className="font-mono text-[7px] text-ink-subtle">M·01</span>
-                </div>
-
-                {/* Miniatura Editorial Selecionada */}
-                <div className="bg-sheet border-2 border-vermilion p-2 aspect-[210/297] flex flex-col justify-between shadow-architectural -translate-y-1">
-                  <div className="space-y-1">
-                    <div className="h-2 w-4/5 bg-ink" />
-                    <div className="h-[1px] w-full bg-vermilion" />
-                    <div className="grid grid-cols-3 gap-1 pt-0.5">
-                      <div className="col-span-2 space-y-1">
-                        <div className="h-1 w-full bg-ink/70" />
-                        <div className="h-1 w-4/5 bg-ink/40" />
+              <div className="grid grid-cols-5 gap-1.5">
+                {(['M·01', 'M·02', 'M·03', 'M·04', 'M·05'] as const).map((code) => {
+                  const featured = code === 'M·02';
+                  return (
+                    <div
+                      key={code}
+                      className={`bg-sheet p-1.5 aspect-[210/297] flex flex-col justify-between ${
+                        featured
+                          ? 'border-2 border-vermilion shadow-architectural -translate-y-1'
+                          : 'border border-paper opacity-80'
+                      }`}
+                    >
+                      <div className="space-y-1">
+                        <div className={`h-1.5 w-4/5 ${featured ? 'bg-ink' : 'bg-ink/70'}`} />
+                        <div className={`h-[1px] w-full ${featured ? 'bg-vermilion' : 'bg-paper'}`} />
+                        <div className="h-0.5 w-full bg-paper/80" />
+                        <div className="h-0.5 w-3/4 bg-paper/70" />
                       </div>
-                      <div className="col-span-1 space-y-1 border-l border-paper pl-0.5">
-                        <div className="h-1 w-full bg-vermilion/60" />
-                        <div className="h-1 w-full bg-paper" />
-                      </div>
+                      <span
+                        className={`font-mono text-[6.5px] ${
+                          featured ? 'text-vermilion font-bold' : 'text-ink-subtle'
+                        }`}
+                      >
+                        {featured ? `${code} ✓` : code}
+                      </span>
                     </div>
-                  </div>
-                  <span className="font-mono text-[7px] text-vermilion font-bold">M·02 ✓</span>
-                </div>
-
-                {/* Miniatura Clássico */}
-                <div className="bg-sheet border border-paper p-2 aspect-[210/297] flex flex-col justify-between opacity-75">
-                  <div className="space-y-1 flex flex-col items-center">
-                    <div className="h-1.5 w-2/3 bg-ink" />
-                    <div className="h-[1px] w-full bg-paper" />
-                    <div className="h-1 w-full bg-paper/70" />
-                    <div className="h-1 w-4/5 bg-paper/70" />
-                  </div>
-                  <span className="font-mono text-[7px] text-ink-subtle">M·03</span>
-                </div>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -130,15 +117,15 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({
                   02
                 </span>
                 <span className="font-mono text-[11px] uppercase tracking-widest text-ink-muted">
-                  FASE II · REDAÇÃO GUIADA
+                  PREENCHIMENTO GUIADO
                 </span>
               </div>
 
               <h3 className="font-serif text-3xl text-ink tracking-tight mb-3">
-                02 — Preencha suas informações.
+                Preencha suas informações.
               </h3>
               <p className="text-sm text-ink-muted leading-relaxed mb-6">
-                Insira seus dados de contato, resumo profissional, experiências, formação acadêmica e competências em campos claros, com visualização instantânea na folha.
+                Insira seus dados de contato, objetivo, experiências, formação acadêmica e habilidades em campos simples, acompanhando o resultado em tempo real.
               </p>
             </div>
 
@@ -148,13 +135,13 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({
               aria-hidden="true"
             >
               <div className="font-mono text-[9px] uppercase tracking-widest text-ink-subtle mb-3 flex justify-between">
-                <span>ESQUEMA 02 · COMPOSIÇÃO EM TEMPO REAL</span>
+                <span>PRÉVIA EM TEMPO REAL</span>
                 <span className="text-ink">AUTO-AJUSTE</span>
               </div>
               <div className="bg-sheet border border-ink p-3 space-y-2.5">
                 <div className="border-b border-paper pb-1.5">
                   <div className="font-mono text-[8px] uppercase text-vermilion">
-                    CAMPO · CARGO ATUAL OU OBJETIVO
+                    CARGO ATUAL OU OBJETIVO
                   </div>
                   <div className="text-xs font-medium text-ink flex items-center justify-between">
                     <span>Engenheira de Software Sênior</span>
@@ -163,10 +150,10 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({
                 </div>
                 <div className="grid grid-cols-2 gap-2 text-[9px] font-mono text-ink-muted">
                   <div className="border border-paper px-2 py-1 bg-ivory/60">
-                    ✓ Entrelinha: 1.35
+                    ✓ Paginação A4
                   </div>
                   <div className="border border-paper px-2 py-1 bg-ivory/60">
-                    ✓ Margem: 18 mm
+                    ✓ Salvo no navegador
                   </div>
                 </div>
               </div>
@@ -181,15 +168,15 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({
                   03
                 </span>
                 <span className="font-mono text-[11px] uppercase tracking-widest text-ink-muted">
-                  FASE III · EXPORTAÇÃO A4
+                  DOWNLOAD EM PDF
                 </span>
               </div>
 
               <h3 className="font-serif text-3xl text-ink tracking-tight mb-3">
-                03 — Baixe seu currículo.
+                Baixe seu currículo.
               </h3>
               <p className="text-sm text-ink-muted leading-relaxed mb-6">
-                Exporte seu documento finalizado em formato PDF de alta precisão, sem marcas d’água, sem precisar criar conta e pronto para enviar a qualquer recrutador.
+                Exporte seu documento finalizado em PDF pronto para enviar ou imprimir, sem marcas d’água, sem precisar criar conta e sem taxas escondidas.
               </p>
             </div>
 
@@ -199,7 +186,7 @@ export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({
               aria-hidden="true"
             >
               <div className="font-mono text-[9px] uppercase tracking-widest text-ink-subtle mb-3 flex justify-between">
-                <span>ESQUEMA 03 · SAÍDA VETORIAL</span>
+                <span>EXPORTAÇÃO IMEDIATA</span>
                 <span className="text-vermilion">PDF / A4</span>
               </div>
               <div className="bg-ink text-ivory p-3.5 border border-ink flex items-center justify-between gap-3">

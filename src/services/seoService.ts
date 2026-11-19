@@ -195,9 +195,9 @@ export const ROUTE_SEO_CONFIG: Record<AppRouteView, RouteSEOMetadata> = {
   privacidade: {
     view: 'privacidade',
     path: '/privacidade',
-    title: 'Política de Privacidade e Armazenamento Local (LocalStorage) | FOLIO',
+    title: 'Política de Privacidade e Proteção de Dados | FOLIO',
     description:
-      'Conheça a Política de Privacidade do FOLIO: armazenamento local dos dados do currículo via LocalStorage, tratamento local de fotos, ausência de envio para servidores e controle de consentimento.',
+      'Conheça a Política de Privacidade do FOLIO: armazenamento local dos dados do currículo no seu navegador, tratamento local de fotos, ausência de envio para servidores e controle de consentimento.',
     canonicalUrl: `${BASE_ORIGIN}/privacidade`,
     robots: 'index, follow',
     ogType: 'website',

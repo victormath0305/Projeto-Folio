@@ -88,22 +88,22 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
               </div>
             </div>
 
-            {/* Colofão Tipográfico e Técnico */}
+            {/* Diferenciais Práticos do FOLIO */}
             <div className="mt-10 pt-8 border-t border-paper grid grid-cols-2 sm:grid-cols-3 gap-6">
               <div>
-                <div className="tech-caption text-ink-subtle">FAMÍLIA SERIFADA</div>
-                <div className="mt-1 font-serif text-xl text-ink">Instrument Serif</div>
-                <div className="text-xs text-ink-muted">Títulos &amp; Numeração</div>
+                <div className="tech-caption text-ink-subtle">MODELOS A4</div>
+                <div className="mt-1 font-serif text-xl text-ink">5 Estilos Prontos</div>
+                <div className="text-xs text-ink-muted">Do primeiro emprego à liderança</div>
               </div>
               <div>
-                <div className="tech-caption text-ink-subtle">FAMÍLIA GROTESCA</div>
-                <div className="mt-1 font-sans text-base font-semibold text-ink">Plus Jakarta Sans</div>
-                <div className="text-xs text-ink-muted">Corpo, Leitura &amp; UI</div>
+                <div className="tech-caption text-ink-subtle">EXPORTAÇÃO</div>
+                <div className="mt-1 font-sans text-base font-semibold text-ink">PDF Sem Marca d’Água</div>
+                <div className="text-xs text-ink-muted">Texto selecionável e pronto para imprimir</div>
               </div>
               <div className="col-span-2 sm:col-span-1">
-                <div className="tech-caption text-ink-subtle">ARQUITETURA</div>
-                <div className="mt-1 font-mono text-xs font-semibold text-ink">Local-First / Zero Servidor</div>
-                <div className="text-xs text-ink-muted">Seus dados ficam no seu aparelho</div>
+                <div className="tech-caption text-ink-subtle">PRIVACIDADE</div>
+                <div className="mt-1 font-sans text-base font-semibold text-ink">Salvo no seu aparelho</div>
+                <div className="text-xs text-ink-muted">Sem cadastro e sem envio a servidores</div>
               </div>
             </div>
 

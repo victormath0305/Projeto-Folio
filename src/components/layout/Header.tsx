@@ -45,20 +45,20 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className="sticky top-0 z-40 bg-ivory/95 backdrop-blur-sm border-b border-ink">
-      {/* Faixa Técnica de Expediente Editorial (Colofão Superior) */}
+      {/* Faixa Superior de Apresentação Editorial */}
       <div className="border-b border-paper bg-ivory-warm/70 px-3 sm:px-8 py-1.5">
         <div className="mx-auto max-w-7xl flex items-center justify-between gap-2 text-[10px] sm:text-[11px] font-mono tracking-wider uppercase text-ink-muted">
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             <span className="inline-flex items-center gap-1.5 text-ink font-medium truncate">
               <span className="h-1.5 w-1.5 bg-vermilion inline-block shrink-0" aria-hidden="true" />
-              <span>EDIÇÃO N° 01 · FUNDAÇÃO</span>
+              <span>GERADOR DE CURRÍCULOS · 100% GRATUITO</span>
             </span>
             <span className="hidden md:inline text-paper-dark">|</span>
-            <span className="hidden md:inline">COMPOSITOR TIPOGRÁFICO A4 (ISO 216)</span>
+            <span className="hidden md:inline">5 MODELOS PROFISSIONAIS EM FORMATO A4</span>
           </div>
           <div className="flex items-center gap-3 shrink-0">
-            <span className="hidden sm:inline">ACESSO PÚBLICO · ZERO MARCA D’ÁGUA</span>
-            <span className="text-vermilion font-semibold">BR / PT</span>
+            <span className="hidden sm:inline">SEM CADASTRO · SEM MARCA D’ÁGUA</span>
+            <span className="text-vermilion font-semibold">PT-BR</span>
           </div>
         </div>
       </div>

@@ -52,6 +52,25 @@ export const Footer: React.FC<FooterProps> = ({
     }
   };
 
+  const handleSectionAnchorClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    hash: string
+  ) => {
+    if (onNavigateToRoute && window.location.pathname !== '/') {
+      e.preventDefault();
+      onNavigateToRoute('landing');
+      window.setTimeout(() => {
+        const targetId = hash.replace(/^#/, '');
+        const el = document.getElementById(targetId);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.location.hash = hash;
+        }
+      }, 60);
+    }
+  };
+
   return (
     <footer className="bg-ink text-ivory border-t border-ink" role="contentinfo">
       <div className="mx-auto max-w-7xl">
@@ -112,11 +131,11 @@ export const Footer: React.FC<FooterProps> = ({
                 Navegação da Capa
               </div>
               <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-paper">
-                <a href="#topo" className="hover:text-ivory">Início</a>
-                <a href="#modelos" className="hover:text-ivory">Modelos A4</a>
-                <a href="#beneficios" className="hover:text-ivory">Benefícios</a>
-                <a href="#como-funciona" className="hover:text-ivory">Como funciona</a>
-                <a href="#sobre" className="hover:text-ivory">Sobre</a>
+                <a href="#topo" onClick={(e) => handleSectionAnchorClick(e, '#topo')} className="hover:text-ivory">Início</a>
+                <a href="#modelos" onClick={(e) => handleSectionAnchorClick(e, '#modelos')} className="hover:text-ivory">Modelos A4</a>
+                <a href="#beneficios" onClick={(e) => handleSectionAnchorClick(e, '#beneficios')} className="hover:text-ivory">Benefícios</a>
+                <a href="#como-funciona" onClick={(e) => handleSectionAnchorClick(e, '#como-funciona')} className="hover:text-ivory">Como funciona</a>
+                <a href="#sobre" onClick={(e) => handleSectionAnchorClick(e, '#sobre')} className="hover:text-ivory">Sobre</a>
               </div>
             </div>
           </div>
@@ -127,16 +146,7 @@ export const Footer: React.FC<FooterProps> = ({
               <h2 className="font-mono text-xs uppercase tracking-widest text-vermilion mb-5">
                 Transparência &amp; Termos
               </h2>
-              <ul className="space-y-2.5 text-sm">
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => onOpenLegalModal('privacidade')}
-                    className="text-paper hover:text-ivory transition-colors underline decoration-ivory/30 underline-offset-4 hover:decoration-vermilion text-left"
-                  >
-                    Política de privacidade (Resumo rápido)
-                  </button>
-                </li>
+              <ul className="space-y-3 text-sm">
                 <li>
                   <a
                     href="/privacidade"
@@ -144,22 +154,16 @@ export const Footer: React.FC<FooterProps> = ({
                       if (onNavigateToRoute) {
                         e.preventDefault();
                         onNavigateToRoute('privacidade');
+                      } else {
+                        e.preventDefault();
+                        onOpenLegalModal('privacidade');
                       }
                     }}
                     className="text-paper hover:text-ivory transition-colors inline-flex items-center gap-1.5"
                   >
-                    <span>Página completa de Privacidade &amp; LGPD</span>
+                    <span>Política de Privacidade</span>
                     <ArrowUpRight className="w-3.5 h-3.5 text-vermilion" aria-hidden="true" />
                   </a>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => onOpenLegalModal('termos')}
-                    className="text-paper hover:text-ivory transition-colors underline decoration-ivory/30 underline-offset-4 hover:decoration-vermilion text-left"
-                  >
-                    Termos de uso e licença pública (Resumo)
-                  </button>
                 </li>
                 <li>
                   <a
@@ -168,11 +172,14 @@ export const Footer: React.FC<FooterProps> = ({
                       if (onNavigateToRoute) {
                         e.preventDefault();
                         onNavigateToRoute('termos-de-uso');
+                      } else {
+                        e.preventDefault();
+                        onOpenLegalModal('termos');
                       }
                     }}
                     className="text-paper hover:text-ivory transition-colors inline-flex items-center gap-1.5"
                   >
-                    <span>Página completa de Termos de Uso</span>
+                    <span>Termos de Uso</span>
                     <ArrowUpRight className="w-3.5 h-3.5 text-vermilion" aria-hidden="true" />
                   </a>
                 </li>
@@ -209,8 +216,8 @@ export const Footer: React.FC<FooterProps> = ({
               </ul>
 
               <div className="mt-6 pt-6 border-t border-ivory/15 text-xs text-paper/80 space-y-1 font-mono">
-                <div>FORMATO PADRÃO: ISO 216 A4 (210 × 297 MM)</div>
-                <div>ARMAZENAMENTO: LOCALSTORAGE (NAVEGADOR)</div>
+                <div>FORMATO PADRÃO: A4 (210 × 297 MM)</div>
+                <div>PRIVACIDADE: DADOS SALVOS NO SEU NAVEGADOR</div>
               </div>
             </div>
 
@@ -233,7 +240,7 @@ export const Footer: React.FC<FooterProps> = ({
             © {new Date().getFullYear()} FOLIO — GERADOR DE CURRÍCULOS GRATUITO. TODOS OS DIREITOS DE COMPOSIÇÃO RESERVADOS AO USUÁRIO.
           </div>
           <div className="text-ivory">
-            FASE 05 · SEO, PERFORMANCE, ACESSIBILIDADE &amp; CONTEÚDO
+            100% GRATUITO · SEM CADASTRO · FORMATO A4
           </div>
         </div>
       </div>

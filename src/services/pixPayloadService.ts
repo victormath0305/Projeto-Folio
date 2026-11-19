@@ -15,7 +15,8 @@ export const SUGGESTED_PIX_AMOUNTS = [5, 10, 20, 50] as const;
 
 export interface PixPaymentArtifact {
   payload: string;
-  amount: number;
+  /** Valor fixo codificado no BR Code em reais, ou null quando o valor é livre no app do banco */
+  amount: number | null;
   formattedAmountBRL: string;
   /** Nome normalizado em ASCII (máx. 25 chars) embutido no campo 59 do BR Code */
   recipientName: string;
@@ -100,18 +101,21 @@ export function computePixCrc16(payloadWithoutCrcValue: string): string {
 }
 
 /**
- * Constrói o código Pix Copia e Cola e o QR Code correspondente para o valor selecionado.
- * Retorna null se os dados reais do recebedor Pix estiverem ausentes ou se o valor for inválido.
+ * Constrói o código Pix Copia e Cola e o QR Code correspondente.
+ * - Quando `amount` é um número positivo (> 0 e <= 100000), inclui o campo 54 com o valor exato.
+ * - Quando `amount` é `null`, gera um BR Code válido sem campo 54 (valor livre definido no app do banco).
+ * - Retorna null se os dados do recebedor Pix estiverem ausentes ou se `amount` for um número inválido (<= 0).
  */
 export function generatePixPaymentArtifact(
-  amount: number,
+  amount: number | null,
   config: PixRecipientConfig = SITE_CONFIG.pix
 ): PixPaymentArtifact | null {
   if (!isPixConfigured(config)) {
     return null;
   }
 
-  if (!Number.isFinite(amount) || amount <= 0 || amount > 100000) {
+  const isOpenAmount = amount === null;
+  if (!isOpenAmount && (!Number.isFinite(amount) || amount <= 0 || amount > 100000)) {
     return null;
   }
 
@@ -132,7 +136,7 @@ export function generatePixPaymentArtifact(
     return null;
   }
 
-  const amountFixed = amount.toFixed(2);
+  const amountFixed = isOpenAmount ? null : (amount as number).toFixed(2);
 
   // Bloco 26: Merchant Account Information (GUI br.gov.bcb.pix + Chave Pix)
   const merchantAccountValue =
@@ -146,7 +150,7 @@ export function generatePixPaymentArtifact(
     formatEmvTlv('26', merchantAccountValue) +
     formatEmvTlv('52', '0000') +
     formatEmvTlv('53', '986') +
-    formatEmvTlv('54', amountFixed) +
+    (amountFixed ? formatEmvTlv('54', amountFixed) : '') +
     formatEmvTlv('58', 'BR') +
     formatEmvTlv('59', cleanName) +
     formatEmvTlv('60', cleanCity) +
@@ -157,14 +161,16 @@ export function generatePixPaymentArtifact(
   const fullPayload = `${payloadWithoutCrc}${crc16}`;
   const qrMatrix = encodeTextToQrMatrix(fullPayload);
 
-  const formattedAmountBRL = new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  }).format(amount);
+  const formattedAmountBRL = isOpenAmount
+    ? 'Valor livre'
+    : new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+      }).format(amount as number);
 
   return {
     payload: fullPayload,
-    amount: Number(amountFixed),
+    amount: amountFixed ? Number(amountFixed) : null,
     formattedAmountBRL,
     recipientName: cleanName,
     displayRecipientName,

@@ -101,7 +101,8 @@ describe('FOLIO — Fase 07: Monetização com AdSense, Recuperação de Adblock
       /Espaço publicitário discreto para manutenção gratuita do FOLIO/i
     );
     expect(adRegion).toBeInTheDocument();
-    expect(within(adRegion).getByText(/ESPAÇO RESERVADO \(ZERO CLS\)/i)).toBeInTheDocument();
+    expect(within(adRegion).getByText('PUBLICIDADE')).toBeInTheDocument();
+    expect(within(adRegion).queryByText(/ZERO CLS/i)).not.toBeInTheDocument();
   });
 
   it('5 e 9. A página /apoie utiliza a configuração centralizada definitiva do Pix, exibe beneficiário e instituição, e nunca gera QR Code falso se a configuração for esvaziada', async () => {

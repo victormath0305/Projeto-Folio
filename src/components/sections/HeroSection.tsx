@@ -5,12 +5,16 @@ import { ResumeDocument, ResumeTemplateId } from '../../types/resume';
 import { A4DocumentRenderer } from '../resume-templates/A4DocumentRenderer';
 
 interface HeroSectionProps {
+  hasSavedResume?: boolean;
   onOpenStartModal: (templateId?: ResumeTemplateId) => void;
+  onContinueSavedResume?: () => void;
   onInspectDocument: (document: ResumeDocument, templateId: ResumeTemplateId) => void;
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
+  hasSavedResume = false,
   onOpenStartModal,
+  onContinueSavedResume,
   onInspectDocument,
 }) => {
   const [specimenTemplate, setSpecimenTemplate] = useState<ResumeTemplateId>('editorial');
@@ -35,15 +39,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 border-b border-paper px-4 sm:px-8 py-3 text-xs font-mono text-ink-muted">
           <div className="lg:col-span-7 flex items-center justify-between lg:pr-8">
             <span className="text-ink font-medium">
-              § 01 — MANIFESTO &amp; COMPOSITOR CURRICULAR
+              § 01 — CURRÍCULOS PROFISSIONAIS EM FORMATO A4
             </span>
             <span className="hidden sm:inline text-ink-subtle">
-              DIREÇÃO DE ARTE SUÍÇA
+              DESIGN EDITORIAL
             </span>
           </div>
           <div className="hidden lg:flex lg:col-span-5 lg:pl-8 lg:border-l lg:border-paper items-center justify-between">
-            <span>ESPÉCIME EM ESCALA · A4 (210 × 297 MM)</span>
-            <span className="text-vermilion font-medium">PROVA N° 01/26</span>
+            <span>PRÉVIA INTERATIVA · FORMATO A4</span>
+            <span className="text-vermilion font-medium">5 MODELOS</span>
           </div>
         </div>
 
@@ -90,7 +94,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               </div>
 
               {/* Ações Principais */}
-              <div className="mt-9 sm:mt-11 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+              <div className="mt-9 sm:mt-11 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3.5">
                 <button
                   type="button"
                   onClick={() => onOpenStartModal(specimenTemplate)}
@@ -100,11 +104,22 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   <ArrowUpRight className="w-5 h-5" aria-hidden="true" />
                 </button>
 
+                {hasSavedResume && onContinueSavedResume && (
+                  <button
+                    type="button"
+                    onClick={onContinueSavedResume}
+                    className="btn-editorial-secondary px-6 py-4 border-vermilion text-ink hover:border-ink"
+                  >
+                    <span>Continuar currículo salvo</span>
+                    <ArrowUpRight className="w-4 h-4 text-vermilion" aria-hidden="true" />
+                  </button>
+                )}
+
                 <a
                   href="#modelos"
                   className="btn-editorial-secondary px-6 py-4"
                 >
-                  <span>Inspecionar modelos A4</span>
+                  <span>Explorar modelos A4</span>
                   <ArrowDownRight className="w-4 h-4 text-vermilion" aria-hidden="true" />
                 </a>
               </div>
@@ -221,16 +236,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               </div>
             </div>
 
-            {/* Legenda Técnica Inferior do Espécime */}
+            {/* Legenda Inferior da Prévia */}
             <div className="mt-5 pt-3 border-t border-paper flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[11px] font-mono text-ink-muted">
               <div className="flex items-center gap-2">
                 <Eye className="w-3.5 h-3.5 text-vermilion shrink-0" aria-hidden="true" />
                 <span>
-                  ESPÉCIME REAL RENDERIZADO EM DOM ·{' '}
+                  Prévia interativa do modelo{' '}
                   <strong className="text-ink font-medium uppercase">{specimenTemplate}</strong>
                 </span>
               </div>
-              <span className="text-ink-subtle">SEM IMAGENS ESTÁTICAS</span>
+              <span className="text-ink-subtle">PRONTO PARA EXPORTAR EM PDF</span>
             </div>
           </div>
         </div>

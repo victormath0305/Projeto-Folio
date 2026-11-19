@@ -86,7 +86,7 @@ export const PublicLegalPage: React.FC<PublicLegalPageProps> = ({
             </span>
           </div>
 
-          <div className="flex items-center gap-1.5">
+          <div className="flex flex-wrap items-center gap-1.5">
             {legalTabs.map((tab) => {
               const active = tab.id === slug;
               return (
@@ -119,7 +119,7 @@ export const PublicLegalPage: React.FC<PublicLegalPageProps> = ({
                 <div className="inline-flex items-center gap-2 border border-ink bg-ivory-warm px-3 py-1 mb-4">
                   <Lock className="w-3.5 h-3.5 text-vermilion" aria-hidden="true" />
                   <span className="font-mono text-[11px] uppercase tracking-widest text-ink font-medium">
-                    DOCUMENTO NORMATIVO · ARQUITETURA LOCAL-FIRST &amp; LGPD
+                    PRIVACIDADE &amp; PROTEÇÃO DE DADOS (LGPD)
                   </span>
                 </div>
 
@@ -128,22 +128,22 @@ export const PublicLegalPage: React.FC<PublicLegalPageProps> = ({
                   <span className="italic text-vermilion">Proteção de Dados.</span>
                 </h1>
                 <p className="mt-4 text-sm sm:text-base text-ink-muted leading-relaxed">
-                  Última atualização: Novembro de 2026. Esta política descreve com transparência técnica como o FOLIO trata os dados inseridos durante a criação do seu currículo.
+                  Última atualização: Novembro de 2026. Esta política explica de forma clara e transparente como o FOLIO trata as informações durante a criação do seu currículo e a navegação nas páginas públicas.
                 </p>
               </header>
 
               <section className="space-y-3">
                 <div className="font-mono text-xs uppercase tracking-widest text-vermilion font-semibold">
-                  § 01 — COMO OS DADOS DO CURRÍCULO SÃO ARMAZENADOS (LOCALSTORAGE)
+                  § 01 — ARMAZENAMENTO LOCAL DOS DADOS DO CURRÍCULO
                 </div>
                 <h2 className="font-serif text-3xl text-ink">
-                  Armazenamento exclusivo no seu navegador e ausência de envio para servidores
+                  Seus dados ficam apenas no seu navegador, sem envio a servidores
                 </h2>
                 <p className="text-sm sm:text-base text-ink-muted leading-relaxed">
-                  O <strong className="text-ink">FOLIO</strong> opera sob arquitetura <em>Local-First</em> (processamento integral no cliente). Todas as informações digitadas no editor — como nome, telefone, endereço de e-mail, experiências profissionais, formação acadêmica, cursos, habilidades e idiomas — são salvas exclusivamente no armazenamento local do seu próprio navegador (<code className="font-mono text-xs bg-ivory-warm px-1.5 py-0.5 border border-paper">window.localStorage</code>, nas chaves <code className="font-mono text-xs bg-ivory-warm px-1.5 py-0.5 border border-paper">folio:resume-document:v1</code> e <code className="font-mono text-xs bg-ivory-warm px-1.5 py-0.5 border border-paper">folio:workspace-preferences:v1</code>).
+                  Todas as informações preenchidas no editor do <strong className="text-ink">FOLIO</strong> — como nome, telefone, e-mail, experiências profissionais, formação acadêmica, cursos, habilidades e idiomas — são salvas exclusivamente no armazenamento local do navegador que você está utilizando.
                 </p>
                 <p className="text-sm sm:text-base text-ink-muted leading-relaxed">
-                  <strong>Ausência de transmissão para servidores:</strong> O FOLIO não possui banco de dados centralizado de candidatos e não envia o conteúdo do seu currículo para servidores externos. A paginação A4 e a geração do arquivo PDF vetorial ocorrem inteiramente na memória do seu dispositivo.
+                  <strong>Sem banco de dados de candidatos:</strong> O FOLIO não exige cadastro e não envia o conteúdo do seu currículo para servidores externos. Tanto a diagramação das páginas A4 quanto a geração do arquivo PDF acontecem diretamente no seu dispositivo.
                 </p>
               </section>
 
@@ -155,52 +155,52 @@ export const PublicLegalPage: React.FC<PublicLegalPageProps> = ({
                   Processamento local de imagens de perfil
                 </h2>
                 <p className="text-sm sm:text-base text-ink-muted leading-relaxed">
-                  A inclusão de fotografia no currículo é opcional. Quando você seleciona um arquivo de imagem (formatos aceitos: <code className="font-mono text-xs">JPG</code>, <code className="font-mono text-xs">PNG</code> ou <code className="font-mono text-xs">WebP</code>, limitado a <code className="font-mono text-xs">2 MB</code>), o arquivo é lido localmente pela API <code className="font-mono text-xs">FileReader</code> do navegador e convertido em uma string local (<code className="font-mono text-xs">Data URL base64</code>) para exibição na prévia A4 e incorporação direta no PDF. A fotografia nunca é enviada para servidores de armazenamento em nuvem.
+                  A inclusão de fotografia no currículo é totalmente opcional. Quando você escolhe uma imagem (JPG, PNG ou WebP, com até 2 MB), ela é processada localmente pelo próprio navegador apenas para aparecer na prévia e no PDF baixado. A fotografia nunca é enviada ou armazenada em servidores externos.
                 </p>
               </section>
 
               <section className="space-y-3">
                 <div className="font-mono text-xs uppercase tracking-widest text-vermilion font-semibold">
-                  § 03 — DEPENDÊNCIAS EXTERNAS, COOKIES E ANALYTICS MEDIANTE CONSENTIMENTO
+                  § 03 — RECURSOS EXTERNOS, MÉTRICAS DE ACESSO E CONSENTIMENTO
                 </div>
                 <h2 className="font-serif text-3xl text-ink">
-                  Transparência sobre requisições técnicas e telemetria opcional
+                  Transparência sobre fontes, estatísticas de visitação e armazenamento
                 </h2>
                 <p className="text-sm sm:text-base text-ink-muted leading-relaxed">
-                  Para garantir total transparência técnica, informamos como funcionam os recursos de rede e monitoramento da aplicação:
+                  Para manter o site rápido, confiável e gratuito, informamos exatamente quais serviços externos podem ser utilizados durante sua visita:
                 </p>
                 <ul className="space-y-2.5 text-sm text-ink-muted list-disc list-inside">
                   <li>
-                    <strong className="text-ink">Carregamento de Fontes Tipográficas (Google Fonts):</strong> A interface carrega as famílias tipográficas (<em>Instrument Serif</em>, <em>Newsreader</em>, <em>Plus Jakarta Sans</em> e <em>JetBrains Mono</em>) a partir dos servidores públicos do Google Fonts (<code className="font-mono text-xs">fonts.googleapis.com</code> e <code className="font-mono text-xs">fonts.gstatic.com</code>). Nessa requisição padrão de navegador, o provedor de fontes recebe apenas os cabeçalhos HTTP técnicos necessários para entregar os arquivos de fonte (como endereço IP e User-Agent do navegador), sem qualquer acesso aos dados do seu currículo.
+                    <strong className="text-ink">Fontes Tipográficas (Google Fonts):</strong> As fontes exibidas no site são carregadas a partir do serviço Google Fonts. Nessa solicitação padrão do navegador, o provedor recebe apenas informações técnicas básicas da conexão para entregar os arquivos de fonte, sem acesso aos dados do seu currículo.
                   </li>
                   <li>
-                    <strong className="text-ink">Armazenamento Local vs. Cookies:</strong> O FOLIO não utiliza cookies de rastreamento publicitário ou de terceiros. Utilizamos apenas o <code className="font-mono text-xs">localStorage</code> do navegador para manter seu rascunho salvo e registrar sua escolha de consentimento (<code className="font-mono text-xs">folio:analytics-consent:v1</code>).
+                    <strong className="text-ink">Estatísticas de Visitação sem Cookies (Vercel Web Analytics):</strong> Utilizamos o Vercel Web Analytics para medir acessos agregados às páginas do site (como páginas mais visitadas e tipo de dispositivo) sem utilizar cookies de rastreamento, sem identificar visitantes individualmente e sem coletar qualquer informação preenchida no editor.
                   </li>
                   <li>
-                    <strong className="text-ink">Analytics Mediante Consentimento (Opt-In):</strong> O módulo de métricas de uso (preparado para Google Analytics 4) permanece <strong>desativado por padrão</strong>. Somente caso você opte expressamente por autorizar o compartilhamento de métricas anônimas, poderão ser registrados cinco eventos estritamente técnicos de uso do produto (<code className="font-mono text-xs">page_view</code>, <code className="font-mono text-xs">start_resume</code>, <code className="font-mono text-xs">select_template</code>, <code className="font-mono text-xs">complete_resume</code> e <code className="font-mono text-xs">export_pdf</code>). Mesmo com o consentimento ativo, um filtro de lista branca no código bloqueia o envio de nome, telefone, e-mail ou qualquer texto do currículo.
+                    <strong className="text-ink">Métricas Opcionais de Uso (Google Analytics 4):</strong> Caso esteja ativado na hospedagem e somente se você autorizar expressamente no painel ao lado, podemos registrar eventos anônimos de navegação (como abertura de modelos e geração de PDF). Nenhum nome, contato, foto ou texto do seu currículo é incluído nesses eventos.
                   </li>
                 </ul>
               </section>
 
               <section className="space-y-3">
                 <div className="font-mono text-xs uppercase tracking-widest text-vermilion font-semibold">
-                  § 04 — GOOGLE ADSENSE, COOKIES DE PUBLICIDADE E ANÚNCIOS PERSONALIZADOS
+                  § 04 — GOOGLE ADSENSE, COOKIES DE PUBLICIDADE E ANÚNCIOS
                 </div>
                 <h2 className="font-serif text-3xl text-ink">
                   Exibição discreta de anúncios em páginas públicas e controle de consentimento
                 </h2>
                 <p className="text-sm sm:text-base text-ink-muted leading-relaxed">
-                  Para sustentar a gratuidade do projeto sem cobrar assinaturas, o FOLIO possui integração preparada para exibição de espaços publicitários discretos via <strong className="text-ink">Google AdSense</strong> exclusivamente nas páginas públicas informativas (nunca dentro do editor de currículos nem nos PDFs exportados).
+                  Para manter o FOLIO gratuito para todos, podemos exibir espaços publicitários discretos via <strong className="text-ink">Google AdSense</strong> exclusivamente nas páginas públicas informativas — nunca dentro do editor de currículos nem nos arquivos PDF exportados.
                 </p>
                 <ul className="space-y-2.5 text-sm text-ink-muted list-disc list-inside">
                   <li>
-                    <strong className="text-ink">Cookies e Tecnologias de Publicidade de Terceiros:</strong> Quando o Google AdSense está ativo e você concede consentimento, o Google e seus parceiros podem utilizar cookies (como o cookie de publicidade do Google) e identificadores web para veicular anúncios com base nas visitas anteriores do usuário a este ou a outros sites na internet.
+                    <strong className="text-ink">Cookies de Publicidade de Terceiros:</strong> O FOLIO não grava cookies próprios para rastrear seu currículo. Contudo, quando o Google AdSense estiver ativo nas páginas públicas e você conceder consentimento, o Google e seus parceiros podem utilizar cookies de publicidade e identificadores para exibir e mensurar anúncios.
                   </li>
                   <li>
-                    <strong className="text-ink">Anúncios Personalizados vs. Não Personalizados:</strong> Você pode escolher no painel ao lado se autoriza <strong>anúncios personalizados</strong>, se prefere apenas <strong>anúncios não personalizados</strong> (baseados apenas no contexto geral da página, sem criação de perfil comportamental, via parâmetro <code className="font-mono text-xs">requestNonPersonalizedAds = 1</code>) ou se mantém a inicialização de scripts de anúncios <strong>desativada</strong>.
+                    <strong className="text-ink">Anúncios Personalizados ou Não Personalizados:</strong> No painel ao lado, você pode escolher a qualquer momento entre permitir <strong>anúncios personalizados</strong>, receber apenas <strong>anúncios não personalizados</strong> (baseados apenas no contexto geral da página, sem perfil comportamental) ou manter a publicidade <strong>desativada</strong>.
                   </li>
                   <li>
-                    <strong className="text-ink">Separação entre Consentimento (LGPD) e Aviso de Adblock:</strong> O gerenciamento de consentimento de privacidade (LGPD/GDPR) e o comunicado de recuperação de bloqueio de anúncios (Ad Blocking Recovery) operam como mecanismos independentes. Nenhuma tecnologia de publicidade que dependa de consentimento é iniciada antes da sua escolha explícita.
+                    <strong className="text-ink">Independência em relação ao aviso de bloqueador de anúncios:</strong> Suas preferências de privacidade (LGPD) são independentes de avisos sobre bloqueadores de anúncios e podem ser alteradas a qualquer momento.
                   </li>
                 </ul>
               </section>
@@ -418,7 +418,7 @@ export const PublicLegalPage: React.FC<PublicLegalPageProps> = ({
                   4. Limitações Técnicas e Armazenamento Local
                 </h2>
                 <p className="text-sm sm:text-base text-ink-muted leading-relaxed">
-                  Como o FOLIO preserva sua privacidade salvando o rascunho apenas no armazenamento local (<code className="font-mono text-xs">LocalStorage</code>) do navegador utilizado, os dados não são sincronizados na nuvem entre aparelhos diferentes. Caso você limpe os dados de navegação do seu navegador, utilize janelas anônimas/privadas ou troque de dispositivo, o rascunho anterior não estará disponível. Recomendamos fortemente baixar e guardar seu arquivo PDF ao concluir a edição.
+                  Como o FOLIO preserva sua privacidade salvando o rascunho apenas no armazenamento local do navegador utilizado, os dados não são sincronizados na nuvem entre aparelhos diferentes. Caso você limpe os dados de navegação do seu navegador, utilize janelas anônimas/privadas ou troque de dispositivo, o rascunho anterior não estará disponível. Recomendamos fortemente baixar e guardar seu arquivo PDF ao concluir a edição.
                 </p>
               </section>
 
@@ -527,16 +527,16 @@ export const PublicLegalPage: React.FC<PublicLegalPageProps> = ({
                 >
                   <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-vermilion font-semibold">
                     <AlertCircle className="w-4 h-4 shrink-0" aria-hidden="true" />
-                    <span>CONFIGURAÇÃO DE LANÇAMENTO · CANAL DE CONTATO</span>
+                    <span>ATENDIMENTO INSTITUCIONAL · PROJETO FOLIO</span>
                   </div>
                   <h2
                     id="pending-contact-heading"
                     className="font-serif text-2xl sm:text-3xl text-ink"
                   >
-                    Canal de e-mail institucional aguardando definição de publicação
+                    Canal direto de e-mail em estruturação
                   </h2>
                   <p className="text-sm text-ink-muted leading-relaxed">
-                    Em respeito à política de transparência do FOLIO, não exibimos endereços, telefones ou e-mails fictícios. O endereço oficial de correio eletrônico será ativado pelo administrador do projeto por meio da variável de ambiente <code className="font-mono text-xs bg-ivory px-1.5 py-0.5 border border-paper">VITE_CONTACT_EMAIL</code> no momento da publicação definitiva do domínio.
+                    O FOLIO é um projeto independente mantido com foco em simplicidade e privacidade. Nosso endereço institucional de atendimento direto será disponibilizado nesta página em breve. Enquanto isso, reunimos orientações completas sobre uso dos modelos, preenchimento e privacidade em nossos guias gratuitos ao lado.
                   </p>
                 </section>
               )}
@@ -579,7 +579,7 @@ export const PublicLegalPage: React.FC<PublicLegalPageProps> = ({
                     onClick={() => onNavigateToRoute('privacidade')}
                     className="text-left text-xs font-mono text-ink hover:text-vermilion underline"
                   >
-                    → Gerenciar ou apagar dados locais (LocalStorage)
+                    → Gerenciar ou apagar dados salvos no navegador
                   </button>
                 </div>
               </div>
