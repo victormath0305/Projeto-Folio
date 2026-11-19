@@ -11,7 +11,7 @@ const env =
   (typeof import.meta !== 'undefined' && import.meta.env) ||
   ({} as Record<string, string | undefined>);
 
-const rawSiteUrl = env.VITE_SITE_URL || 'https://folio-curriculos.com.br';
+const rawSiteUrl = env.VITE_SITE_URL || 'https://foliocurriculo.com.br';
 
 export interface PixRecipientConfig {
   pixKey: string;

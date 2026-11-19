@@ -16,4 +16,4 @@ Allow: /apoie
 # Rotas de edição pessoal não devem ser indexadas
 Disallow: /editor
 
-Sitemap: https://folio-curriculos.com.br/sitemap.xml
+Sitemap: https://foliocurriculo.com.br/sitemap.xml

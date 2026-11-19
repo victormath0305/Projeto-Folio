@@ -315,6 +315,7 @@ export function applyRouteSEOMetadata(view: AppRouteView): RouteSEOMetadata {
     );
     setMetaTag('meta[property="og:type"]', 'property', 'og:type', meta.ogType);
     setMetaTag('meta[property="og:url"]', 'property', 'og:url', meta.canonicalUrl);
+    setMetaTag('meta[property="og:image"]', 'property', 'og:image', `${BASE_ORIGIN}/og-card.svg`);
 
     setMetaTag('meta[name="twitter:title"]', 'name', 'twitter:title', meta.title);
     setMetaTag(
@@ -323,6 +324,7 @@ export function applyRouteSEOMetadata(view: AppRouteView): RouteSEOMetadata {
       'twitter:description',
       meta.description
     );
+    setMetaTag('meta[name="twitter:image"]', 'name', 'twitter:image', `${BASE_ORIGIN}/og-card.svg`);
 
     if (SITE_CONFIG.gscVerificationToken) {
       setMetaTag(
