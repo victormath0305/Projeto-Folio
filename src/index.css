@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-ivory: #F3EFE6;
+    --color-ivory-warm: #EAE4D7;
+    --color-ink: #191919;
+    --color-ink-muted: #4A4741;
+    --color-vermilion: #D94732;
+    --color-paper: #C8C1B4;
+    --color-sheet: #FFFFFF;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: #F3EFE6;
+    color: #191919;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    text-rendering: optimizeLegibility;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Focus ring de alta visibilidade com estética editorial */
+  :focus-visible {
+    outline: 2px solid #D94732;
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  /* Linha divisória editorial fina */
+  .editorial-rule {
+    border-color: #C8C1B4;
+  }
+
+  .editorial-rule-strong {
+    border-color: #191919;
+  }
+
+  /* Legenda técnica em caixa alta e espaçamento milimétrico */
+  .tech-caption {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+
+  /* Proporção exata de folha ISO 216 A4 (1 : 1.4142) */
+  .a4-aspect {
+    aspect-ratio: 210 / 297;
+  }
+
+  /* Textura sutil de papel editorial usando gradiente técnico sem imagens externas */
+  .paper-grid-bg {
+    background-image: 
+      linear-gradient(to right, rgba(200, 193, 180, 0.25) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(200, 193, 180, 0.25) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* Botão principal com resposta tátil arquitetônica */
+  .btn-editorial-primary {
+    @apply inline-flex items-center justify-center gap-3 bg-ink text-ivory px-6 py-3.5 text-sm font-medium tracking-wide border border-ink transition-all duration-200;
+  }
+
+  .btn-editorial-primary:hover {
+    @apply bg-vermilion border-vermilion text-sheet -translate-y-0.5 shadow-architectural;
+  }
+
+  .btn-editorial-primary:active {
+    @apply translate-y-0 shadow-none;
+  }
+
+  /* Botão secundário em papel marfim */
+  .btn-editorial-secondary {
+    @apply inline-flex items-center justify-center gap-2.5 bg-transparent text-ink px-5 py-3.5 text-sm font-medium border border-ink transition-all duration-200;
+  }
+
+  .btn-editorial-secondary:hover {
+    @apply bg-ivory-warm -translate-y-0.5 shadow-architectural;
+  }
+
+  .btn-editorial-secondary:active {
+    @apply translate-y-0 shadow-none;
+  }
+}

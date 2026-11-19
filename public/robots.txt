@@ -1,0 +1,19 @@
+# FOLIO — Gerador de Currículos Profissionais (ISO 216 A4)
+# Diretrizes de indexação e proteção de privacidade do usuário
+
+User-agent: *
+Allow: /
+Allow: /modelos-de-curriculo
+Allow: /curriculo-primeiro-emprego
+Allow: /curriculo-sem-experiencia
+Allow: /como-fazer-um-curriculo
+Allow: /curriculo-profissional
+Allow: /privacidade
+Allow: /termos-de-uso
+Allow: /contato
+Allow: /apoie
+
+# Rotas de edição pessoal não devem ser indexadas
+Disallow: /editor
+
+Sitemap: https://folio-curriculos.com.br/sitemap.xml
