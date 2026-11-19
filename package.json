@@ -5,7 +5,7 @@
   "description": "FOLIO — Gerador de currículos online, gratuito e com direção de arte editorial.",
   "type": "module",
   "engines": {
-    "node": "20.x"
+    "node": "26.x"
   },
   "scripts": {
     "dev": "vite",

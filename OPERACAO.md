@@ -6,7 +6,7 @@ Guia prático para o proprietário executar, testar, configurar, atualizar e man
 
 ## 1. Requisitos e Instalação de Dependências
 
-- **Node.js recomendado:** `20.x LTS` (compatível com `20+` ou `22 LTS`).
+- **Node.js recomendado:** `26.x` (padrão exigido na Vercel em `package.json`).
 - **Gerenciador de pacotes:** `npm` (incluso no Node.js).
 
 ```bash
