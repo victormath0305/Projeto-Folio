@@ -21,7 +21,9 @@ export type AnalyticsEventName =
   | 'template_selected'
   | 'pdf_exported'
   | 'guide_opened'
-  | 'first_job_mode_toggled';
+  | 'first_job_mode_toggled'
+  | 'support_page_viewed'
+  | 'pix_code_copied';
 
 export interface SafeAnalyticsPayload {
   route?: string;
@@ -33,13 +35,16 @@ export interface SafeAnalyticsPayload {
 
 declare global {
   interface Window {
+    dataLayer?: unknown[];
     gtag?: (
-      command: 'event' | 'config' | 'consent',
-      target: string,
+      command: 'event' | 'config' | 'consent' | 'js',
+      target: string | Date,
       params?: Record<string, unknown>
     ) => void;
   }
 }
+
+const GA_SCRIPT_ID = 'folio-ga4-script';
 
 export const analyticsService = {
   getConsentStatus(): ConsentStatus {
@@ -64,6 +69,9 @@ export const analyticsService = {
         CONSENT_STORAGE_KEY,
         granted ? 'granted' : 'denied'
       );
+      if (granted) {
+        this.ensureGoogleAnalyticsLoaded();
+      }
       if (typeof window.gtag === 'function') {
         window.gtag('consent', 'update', {
           analytics_storage: granted ? 'granted' : 'denied',
@@ -75,7 +83,52 @@ export const analyticsService = {
   },
 
   isConfigured(): boolean {
-    return Boolean(SITE_CONFIG.gaMeasurementId && SITE_CONFIG.gaMeasurementId.trim());
+    return Boolean(
+      SITE_CONFIG.gaMeasurementId &&
+        /^G-[A-Z0-9]{6,16}$/i.test(SITE_CONFIG.gaMeasurementId.trim())
+    );
+  },
+
+  /**
+   * Injeta o script oficial do Google Analytics 4 de forma assíncrona somente quando:
+   * 1. VITE_GA_MEASUREMENT_ID estiver configurado com um ID válido; e
+   * 2. O usuário tiver concedido consentimento explícito (Opt-In).
+   */
+  ensureGoogleAnalyticsLoaded(): boolean {
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
+      return false;
+    }
+    if (!this.isConfigured() || !this.hasConsent()) {
+      return false;
+    }
+    if (document.getElementById(GA_SCRIPT_ID)) {
+      return true;
+    }
+
+    const measurementId = SITE_CONFIG.gaMeasurementId.trim();
+    window.dataLayer = window.dataLayer || [];
+    window.gtag =
+      window.gtag ||
+      function gtagShim() {
+        // eslint-disable-next-line prefer-rest-params
+        window.dataLayer?.push(arguments);
+      };
+
+    window.gtag('js', new Date());
+    window.gtag('config', measurementId, {
+      anonymize_ip: true,
+      allow_google_signals: false,
+      allow_ad_personalization_signals: false,
+    });
+
+    const script = document.createElement('script');
+    script.id = GA_SCRIPT_ID;
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(
+      measurementId
+    )}`;
+    document.head.appendChild(script);
+    return true;
   },
 
   /**

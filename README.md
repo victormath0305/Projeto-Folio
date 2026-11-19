@@ -1,6 +1,6 @@
-# FOLIO — Gerador de Currículos (Fase 01: Identidade, Design System e Fundação)
+# FOLIO — Gerador de Currículos Profissionais Gratuito
 
-Plataforma aberta e gratuita para criação de currículos profissionais em formato **ISO 216 A4 (210 × 297 mm)**, projetada com direção de arte editorial contemporânea, tipografia suíça e arquitetura *local-first* (sem necessidade de cadastro e sem marcas d’água).
+Plataforma aberta, gratuita e sem necessidade de cadastro para criação de currículos profissionais em formato **ISO 216 A4 (210 × 297 mm)**, projetada com direção de arte editorial contemporânea, tipografia suíça e arquitetura *local-first* (salvamento local no navegador, privacidade por padrão e exportação em PDF vetorial sem marcas d’água).
 
 ---
 
@@ -16,21 +16,34 @@ Plataforma aberta e gratuita para criação de currículos profissionais em form
 | `sheet` | `#FFFFFF` | Branco puro (exclusivo para a representação física das folhas A4) |
 
 ### Sistema Tipográfico
-- **Títulos e Chamadas Editoriais:** `Instrument Serif` & `Newsreader` (personalidade editorial, itálicos expressivos e numeração de seções).
-- **Corpo, Formulários e Navegação:** `Plus Jakarta Sans` (sans-serif geométrica/humanista de altíssima legibilidade em telas e impressos).
-- **Legendas Técnicas e Cotas:** `JetBrains Mono` (índices `§ 01`, dimensões `210 × 297 MM`, referências de matriz).
+- **Títulos e Chamadas Editoriais:** `Instrument Serif` & `Newsreader`
+- **Corpo, Formulários e Navegação:** `Plus Jakarta Sans`
+- **Legendas Técnicas e Cotas:** `JetBrains Mono`
 
 ---
 
-## 2. Matrizes Demonstrativas A4 Implementadas
+## 2. Biblioteca de Cinco Modelos Profissionais A4
 
-1. **ESSENCIAL (`MATRIZ 01 / SÉRIE SUÍÇA`)** — Minimalista, direto e profissional. Grade linear de coluna única com compatibilidade máxima em sistemas ATS.
-2. **EDITORIAL (`MATRIZ 02 / SÉRIE LAUDA`)** — Personalidade tipográfica e composição diferenciada em duas colunas assimétricas (68% / 32%).
-3. **CLÁSSICO (`MATRIZ 03 / SÉRIE CÁTEDRA`)** — Tradicional e organizado, com cabeçalho simétrico e estrutura cronológica formal.
+1. **M·01 — ESSENCIAL (`SÉRIE SUÍÇA`)** — Minimalista, linear e com compatibilidade máxima em sistemas ATS.
+2. **M·02 — EDITORIAL (`SÉRIE LAUDA`)** — Duas colunas assimétricas (68% / 32%) com forte personalidade tipográfica.
+3. **M·03 — CLÁSSICO (`SÉRIE CÁTEDRA`)** — Tradicional, simétrico e formal para áreas jurídicas, acadêmicas e financeiras.
+4. **M·04 — EXECUTIVO (`SÉRIE DIRETORIA`)** — Hierarquia de liderança com faixa superior estruturada e foco em impacto.
+5. **M·05 — TÉCNICO (`SÉRIE ENGENHARIA`)** — Grade modular para tecnologia, engenharia e dados com painel de competências.
 
 ---
 
-## 3. Como Executar Localmente
+## 3. Principais Funcionalidades
+
+- **Editor de 9 Seções com Pré-visualização A4 em Tempo Real** (`/editor`, protegido por `noindex, nofollow`).
+- **Modo Primeiro Emprego / Sem Experiência**, adaptando a estrutura curricular automaticamente.
+- **Paginação Multi-Página A4 e Exportação PDF Vetorial** (texto selecionável e pesquisável via `jsPDF`, sem marcas d’água).
+- **SEO Técnico e Páginas Públicas de Conteúdo:** `/modelos-de-curriculo`, `/curriculo-primeiro-emprego`, `/curriculo-sem-experiencia`, `/como-fazer-um-curriculo` e `/curriculo-profissional`.
+- **Transparência e Conformidade:** `/privacidade`, `/termos-de-uso`, `/contato` e página 404 dedicada.
+- **Sustentabilidade Independente:** Arquitetura modular para Google AdSense (somente em páginas públicas, nunca no editor), recuperação de Adblock dispensável e doações voluntárias via Pix EMV/BR Code (`/apoie`).
+
+---
+
+## 4. Execução Local e Operação
 
 ```bash
 # 1. Instalar dependências
@@ -42,9 +55,14 @@ npm run dev
 # 3. Verificar tipagem TypeScript
 npm run lint
 
-# 4. Executar suíte de testes automatizados (Vitest + Testing Library)
+# 4. Executar suíte completa de testes automatizados (Vitest + Testing Library)
 npm run test
 
-# 5. Gerar build de produção
+# 5. Gerar build de produção (saída em dist/)
 npm run build
+
+# 6. Pré-visualizar o build de produção localmente
+npm run preview
 ```
+
+Para o manual completo de manutenção, variáveis de ambiente, domínio, AdSense, Search Console, atualização de dados Pix, deploy na Vercel e rollback, consulte **[OPERACAO.md](./OPERACAO.md)**.

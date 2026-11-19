@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   AlertCircle,
   ArrowLeft,
@@ -10,6 +10,7 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { PixRecipientConfig, SITE_CONFIG } from '../../config/siteConfig';
+import { analyticsService } from '../../services/analyticsService';
 import {
   generatePixPaymentArtifact,
   getMissingPixConfigFields,
@@ -46,6 +47,10 @@ export const SupportPixPage: React.FC<SupportPixPageProps> = ({
   const [selectedPreset, setSelectedPreset] = useState<number | 'custom'>(10);
   const [customAmountInput, setCustomAmountInput] = useState<string>('15');
   const [copiedFeedback, setCopiedFeedback] = useState<boolean>(false);
+
+  useEffect(() => {
+    analyticsService.trackEvent('support_page_viewed', { route: '/apoie' });
+  }, []);
 
   const numericAmount = useMemo(() => {
     if (selectedPreset !== 'custom') {
@@ -85,6 +90,8 @@ export const SupportPixPage: React.FC<SupportPixPageProps> = ({
         document.body.removeChild(textarea);
       }
       setCopiedFeedback(true);
+      // Registra apenas o clique anônimo quando houver consentimento (jamais envia a chave Pix ou valores)
+      analyticsService.trackEvent('pix_code_copied', { route: '/apoie' });
     } catch {
       setCopiedFeedback(true);
     }
@@ -363,9 +370,27 @@ export const SupportPixPage: React.FC<SupportPixPageProps> = ({
                     </svg>
                   </div>
 
-                  <div className="mt-3 w-full pt-2.5 border-t border-paper flex items-center justify-between font-mono text-[10px] text-ink-muted">
-                    <span>BENEFICIÁRIO: {pixArtifact.recipientName}</span>
-                    <span>{pixArtifact.recipientCity}</span>
+                  <div className="mt-3 w-full pt-2.5 border-t border-paper space-y-1 font-mono text-[10px] text-ink-muted">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-ink-subtle uppercase">Beneficiário:</span>
+                      <span
+                        data-testid="pix-beneficiary-name"
+                        className="text-ink font-semibold text-right"
+                      >
+                        {pixArtifact.displayRecipientName}
+                      </span>
+                    </div>
+                    {pixArtifact.recipientInstitution && (
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-ink-subtle uppercase">Instituição:</span>
+                        <span
+                          data-testid="pix-beneficiary-institution"
+                          className="text-ink font-medium text-right"
+                        >
+                          {pixArtifact.recipientInstitution}
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -417,6 +442,10 @@ export const SupportPixPage: React.FC<SupportPixPageProps> = ({
                       Cole o código na opção “Pix Copia e Cola” do aplicativo do seu banco para concluir.
                     </p>
                   )}
+
+                  <p className="text-[11px] text-ink-subtle leading-relaxed">
+                    A confirmação da transferência acontece exclusivamente dentro do aplicativo do seu banco. O FOLIO não realiza cobrança nem confirmação automática.
+                  </p>
                 </div>
               </div>
             ) : (

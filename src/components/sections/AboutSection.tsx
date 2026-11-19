@@ -77,10 +77,13 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
 
               <div className="mt-6 space-y-4 text-sm sm:text-base text-ink-muted leading-relaxed max-w-2xl">
                 <p>
-                  O <strong className="text-ink font-semibold">FOLIO</strong> parte de uma premissa simples: criar um currículo grátis e profissional não deve depender do domínio de softwares complexos de editoração nem do pagamento de assinaturas abusivas ao final do preenchimento.
+                  O <strong className="text-ink font-semibold">FOLIO</strong> é um gerador de currículos online, gratuito e sem cadastro, criado para quem busca primeiro emprego, estágio, recolocação ou transição de carreira sem precisar pagar assinaturas ao final do preenchimento.
                 </p>
                 <p>
-                  Inspirado na tradição da tipografia suíça e nas publicações independentes contemporâneas, tratamos cada currículo como um documento editorial legítimo em formato A4 — onde margens, proporções e escolha de fontes trabalham silenciosamente a favor da clareza da sua história.
+                  Inspirado na tradição da tipografia suíça e nas publicações independentes contemporâneas, o sistema funciona diretamente no seu navegador: você escolhe entre cinco matrizes A4, preenche suas informações com salvamento automático local e exporta o documento em PDF vetorial sem marcas d’água.
+                </p>
+                <p>
+                  O projeto permanece gratuito para todos e se mantém de forma independente por meio de espaços publicitários discretos apenas em páginas públicas informativas (nunca dentro do editor) e de contribuições voluntárias via Pix.
                 </p>
               </div>
             </div>

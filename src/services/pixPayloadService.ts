@@ -17,7 +17,12 @@ export interface PixPaymentArtifact {
   payload: string;
   amount: number;
   formattedAmountBRL: string;
+  /** Nome normalizado em ASCII (máx. 25 chars) embutido no campo 59 do BR Code */
   recipientName: string;
+  /** Nome completo do beneficiário para exibição transparente antes do pagamento */
+  displayRecipientName: string;
+  /** Instituição financeira do beneficiário (ex.: Nubank) */
+  recipientInstitution: string;
   recipientCity: string;
   txId: string;
   crc16: string;
@@ -110,8 +115,14 @@ export function generatePixPaymentArtifact(
     return null;
   }
 
-  const cleanKey = config.pixKey.trim();
-  const cleanName = normalizeEmvAscii(config.recipientName, 25);
+  const rawKey = config.pixKey.trim();
+  // Se a chave for CPF formatado (000.000.000-00), normaliza para os 11 dígitos exigidos pelo padrão BCB
+  const cleanKey = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(rawKey)
+    ? rawKey.replace(/\D/g, '')
+    : rawKey;
+  const displayRecipientName = config.recipientName.trim();
+  const recipientInstitution = (config.recipientInstitution || '').trim();
+  const cleanName = normalizeEmvAscii(displayRecipientName, 25);
   const cleanCity = normalizeEmvAscii(config.recipientCity, 15);
   const cleanTxId =
     normalizeEmvAscii(config.txId || 'FOLIOAPOIO', 25).replace(/\s+/g, '') ||
@@ -156,6 +167,8 @@ export function generatePixPaymentArtifact(
     amount: Number(amountFixed),
     formattedAmountBRL,
     recipientName: cleanName,
+    displayRecipientName,
+    recipientInstitution,
     recipientCity: cleanCity,
     txId: cleanTxId,
     crc16,

@@ -1,11 +1,13 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import App from '../App';
 import { EditorialAdSlot } from '../components/monetization/EditorialAdSlot';
 import { AdBlockRecoveryModal } from '../components/monetization/AdBlockRecoveryModal';
 import { SupportPixPage } from '../components/pages/SupportPixPage';
+import { SITE_CONFIG } from '../config/siteConfig';
 import { adSenseService } from '../services/adSenseService';
+import { analyticsService } from '../services/analyticsService';
 import {
   computePixCrc16,
   generatePixPaymentArtifact,
@@ -102,7 +104,7 @@ describe('FOLIO — Fase 07: Monetização com AdSense, Recuperação de Adblock
     expect(within(adRegion).getByText(/ESPAÇO RESERVADO \(ZERO CLS\)/i)).toBeInTheDocument();
   });
 
-  it('5 e 9. A página /apoie funciona sem inventar dados Pix nem gerar QR Code falso quando a configuração real está ausente', async () => {
+  it('5 e 9. A página /apoie utiliza a configuração centralizada definitiva do Pix, exibe beneficiário e instituição, e nunca gera QR Code falso se a configuração for esvaziada', async () => {
     const user = userEvent.setup();
     render(<App />);
 
@@ -121,27 +123,49 @@ describe('FOLIO — Fase 07: Monetização com AdSense, Recuperação de Adblock
       })
     ).toBeInTheDocument();
 
-    // Verifica que os dados Pix padrão estão vazios e nenhum QR Code falso é renderizado
-    expect(isPixConfigured()).toBe(false);
-    expect(screen.getByTestId('pix-unconfigured-notice')).toBeInTheDocument();
-    expect(screen.queryByTestId('pix-qrcode-svg')).not.toBeInTheDocument();
-    expect(
-      screen.getByText(/Nenhum QR Code falso é gerado sem dados reais de recebimento/i)
-    ).toBeInTheDocument();
+    // Verifica que a configuração centralizada oficial do Pix está ativa e exibe beneficiário + instituição
+    expect(isPixConfigured()).toBe(true);
+    expect(screen.getByTestId('pix-qrcode-svg')).toBeInTheDocument();
+    expect(screen.getByTestId('pix-beneficiary-name')).toHaveTextContent(
+      'Victor Matheus Barros Trindade'
+    );
+    expect(screen.getByTestId('pix-beneficiary-institution')).toHaveTextContent(
+      'Nubank'
+    );
+
+    // Garante que o evento de analytics ao copiar o código Pix nunca envia a chave Pix
+    const gtagSpy = vi.fn();
+    window.gtag = gtagSpy;
+    analyticsService.setConsent(true);
+    gtagSpy.mockClear();
+
+    await user.click(
+      screen.getByRole('button', { name: /Copiar código Pix Copia e Cola/i })
+    );
+    expect(screen.getByText(/Código Pix copiado!/i)).toBeInTheDocument();
+    expect(gtagSpy).toHaveBeenCalledWith('event', 'pix_code_copied', {
+      route: '/apoie',
+    });
+    const serializedGtagCalls = JSON.stringify(gtagSpy.mock.calls);
+    expect(serializedGtagCalls).not.toContain(SITE_CONFIG.pix.pixKey);
+
+    // Verifica que, se a configuração for esvaziada via override, nenhum QR Code falso é gerado
+    const emptyPixConfig = {
+      pixKey: '',
+      recipientName: '',
+      recipientInstitution: '',
+      recipientCity: '',
+      txId: '',
+    };
+    expect(isPixConfigured(emptyPixConfig)).toBe(false);
+    expect(generatePixPaymentArtifact(10, emptyPixConfig)).toBeNull();
   });
 
-  it('6, 7 e 8. Quando os dados de recebimento Pix são fornecidos, o QR Code corresponde exatamente ao código Pix Copia e Cola e atualiza conforme o valor selecionado (R$ 5, R$ 10, R$ 20, R$ 50 e Outro valor)', async () => {
+  it('6, 7 e 8. O QR Code Pix corresponde exatamente ao código Pix Copia e Cola e atualiza conforme o valor selecionado (R$ 5, R$ 10, R$ 20, R$ 50 e Outro valor)', async () => {
     const user = userEvent.setup();
-    const realTestPixConfig = {
-      pixKey: 'apoio@folio-curriculos.com.br',
-      recipientName: 'PROJETO FOLIO',
-      recipientCity: 'SAO PAULO',
-      txId: 'FOLIOAPOIO',
-    };
 
     render(
       <SupportPixPage
-        pixConfigOverride={realTestPixConfig}
         onNavigateToRoute={() => {}}
         onStartEditor={() => {}}
       />
@@ -200,8 +224,8 @@ describe('FOLIO — Fase 07: Monetização com AdSense, Recuperação de Adblock
     expect(screen.getByText(/Código Pix copiado!/i)).toBeInTheDocument();
 
     // Verifica que generatePixPaymentArtifact rejeita valores negativos ou zero
-    expect(generatePixPaymentArtifact(0, realTestPixConfig)).toBeNull();
-    expect(generatePixPaymentArtifact(-10, realTestPixConfig)).toBeNull();
+    expect(generatePixPaymentArtifact(0)).toBeNull();
+    expect(generatePixPaymentArtifact(-10)).toBeNull();
   });
 
   it('10. O aviso de Adblock apresenta o texto e os 3 botões obrigatórios, exibe instruções genéricas sem pedir cliques em anúncios e permite dispensar sem bloquear o site', async () => {

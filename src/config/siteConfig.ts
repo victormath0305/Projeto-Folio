@@ -16,6 +16,7 @@ const rawSiteUrl = env.VITE_SITE_URL || 'https://folio-curriculos.com.br';
 export interface PixRecipientConfig {
   pixKey: string;
   recipientName: string;
+  recipientInstitution: string;
   recipientCity: string;
   txId: string;
 }
@@ -59,17 +60,22 @@ export const SITE_CONFIG = {
   } satisfies AdSenseConfig,
 
   /**
-   * Configuração Pública de Recebimento de Doações Voluntárias via Pix (Fase 07 — Seção 4)
-   * Jamais inventa chave Pix, nome de beneficiário ou cidade.
-   * Nunca armazena segredos ou credenciais bancárias no frontend.
+   * Configuração Pública Centralizada de Recebimento de Doações Voluntárias via Pix (Fases 07 e 08)
+   * Fonte única dos dados de recebimento fornecidos pelo proprietário.
+   * Nunca armazena senhas, tokens ou credenciais bancárias no frontend e nunca é enviada para analytics.
    */
   pix: {
-    pixKey: (env.VITE_PIX_KEY || '').trim(),
-    recipientName: (env.VITE_PIX_RECIPIENT_NAME || '').trim(),
-    recipientCity: (env.VITE_PIX_RECIPIENT_CITY || '').trim(),
+    pixKey: (env.VITE_PIX_KEY || '85124478004').trim(),
+    recipientName: (
+      env.VITE_PIX_RECIPIENT_NAME || 'Victor Matheus Barros Trindade'
+    ).trim(),
+    recipientInstitution: (
+      env.VITE_PIX_RECIPIENT_INSTITUTION || 'Nubank'
+    ).trim(),
+    recipientCity: (env.VITE_PIX_RECIPIENT_CITY || 'BRASIL').trim(),
     txId: (env.VITE_PIX_TXID || 'FOLIOAPOIO').trim(),
   } satisfies PixRecipientConfig,
 
   /** Versão da aplicação */
-  version: '1.1.0-rc.1',
+  version: '1.2.0-rc.1',
 } as const;
