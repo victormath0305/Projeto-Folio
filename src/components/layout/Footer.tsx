@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Linkedin } from 'lucide-react';
 import { AppRouteView, PublicGuideSlug } from '../../services/seoService';
 import { ResumeTemplateId } from '../../types/resume';
 
@@ -235,12 +235,25 @@ export const Footer: React.FC<FooterProps> = ({
         </div>
 
         {/* Colofão Final */}
-        <div className="border-t border-ivory/15 px-4 sm:px-8 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs font-mono text-paper/70">
+        <div className="border-t border-ivory/15 px-4 sm:px-8 py-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs font-mono text-paper/70">
           <div>
             © {new Date().getFullYear()} FOLIO — GERADOR DE CURRÍCULOS GRATUITO. TODOS OS DIREITOS DE COMPOSIÇÃO RESERVADOS AO USUÁRIO.
           </div>
-          <div className="text-ivory">
-            100% GRATUITO · SEM CADASTRO · FORMATO A4
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <span className="text-ivory/80">
+              100% GRATUITO · SEM CADASTRO · FORMATO A4
+            </span>
+            <span className="hidden sm:inline text-ivory/25" aria-hidden="true">|</span>
+            <a
+              href="https://www.linkedin.com/in/victor-matheus-trindade/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Desenvolvido por Victor Matheus — Perfil no LinkedIn"
+              className="inline-flex items-center gap-1.5 text-ivory hover:text-vermilion transition-colors"
+            >
+              <span>Desenvolvido por Victor Matheus</span>
+              <Linkedin className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+            </a>
           </div>
         </div>
       </div>
