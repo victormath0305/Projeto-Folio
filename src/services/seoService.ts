@@ -33,27 +33,74 @@ export const ROUTE_SEO_CONFIG: Record<AppRouteView, RouteSEOMetadata> = {
   landing: {
     view: 'landing',
     path: '/',
-    title: 'FOLIO — Criar Currículo Grátis em PDF A4 | Gerador de Currículos Online',
+    title: 'Criar Currículo Grátis em PDF Online (Sem Cadastro) | FOLIO',
     description:
-      'Crie seu currículo grátis no FOLIO: gerador de currículos gratuito para fazer currículo online, escolher modelo de currículo profissional (inclusive para primeiro emprego ou sem experiência) e baixar currículo em PDF A4 pronto para imprimir, sem cadastro e sem marca d’água.',
+      'Faça seu currículo online grátis pelo celular ou computador, sem cadastro e sem marca d’água. Escolha entre 5 modelos prontos para preencher e baixar em PDF.',
     canonicalUrl: `${BASE_ORIGIN}/`,
     robots: 'index, follow',
     ogType: 'website',
     jsonLd: {
       '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      name: 'FOLIO — Gerador de Currículos Gratuito',
-      url: `${BASE_ORIGIN}/`,
-      inLanguage: 'pt-BR',
-      applicationCategory: 'BusinessApplication',
-      operatingSystem: 'All',
-      offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'BRL',
-      },
-      description:
-        'Plataforma gratuita para criar currículo grátis, fazer currículo online com 5 modelos de currículo profissional e baixar currículo em PDF A4 pronto para imprimir.',
+      '@graph': [
+        {
+          '@type': 'WebSite',
+          name: 'FOLIO — Gerador de Currículos Gratuito',
+          alternateName: 'FOLIO Currículo',
+          url: `${BASE_ORIGIN}/`,
+          inLanguage: 'pt-BR',
+        },
+        {
+          '@type': 'WebApplication',
+          name: 'FOLIO — Gerador de Currículos Gratuito',
+          url: `${BASE_ORIGIN}/`,
+          inLanguage: 'pt-BR',
+          applicationCategory: 'BusinessApplication',
+          operatingSystem: 'All',
+          isAccessibleForFree: true,
+          offers: {
+            '@type': 'Offer',
+            price: '0',
+            priceCurrency: 'BRL',
+          },
+          featureList: [
+            'Criar currículo grátis online sem cadastro',
+            '5 modelos de currículo prontos para preencher (Essencial, Editorial, Clássico, Executivo e Técnico)',
+            'Exportação gratuita em PDF formato A4 sem marca d’água',
+            'Modo dedicado para primeiro emprego, estágio e currículo sem experiência',
+          ],
+          description:
+            'Gerador de currículos online gratuito para criar currículo simples ou profissional, preencher pelo celular ou computador e baixar em PDF A4 sem cadastro e sem marca d’água.',
+        },
+        {
+          '@type': 'FAQPage',
+          mainEntity: [
+            {
+              '@type': 'Question',
+              name: 'O FOLIO é realmente grátis para baixar o currículo em PDF?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Sim. Todos os cinco modelos de currículo do FOLIO são 100% gratuitos, sem cadastro obrigatório, sem assinatura oculta e sem marca d’água no PDF baixado.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'Posso fazer um currículo para primeiro emprego ou sem experiência?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Sim. O editor possui um modo dedicado para primeiro emprego, estágio e jovem aprendiz que destaca formação acadêmica, cursos, projetos e habilidades.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'Dá para criar e baixar currículo em PDF pelo celular?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Sim. O FOLIO funciona diretamente no navegador do celular ou computador, com prévia em tempo real e download imediato em PDF formato A4 pronto para enviar ou imprimir.',
+              },
+            },
+          ],
+        },
+      ],
     },
   },
   editor: {
@@ -75,28 +122,28 @@ export const ROUTE_SEO_CONFIG: Record<AppRouteView, RouteSEOMetadata> = {
   'modelos-de-curriculo': {
     view: 'modelos-de-curriculo',
     path: '/modelos-de-curriculo',
-    title: '5 Modelos de Currículo Profissional para Baixar em PDF A4 Grátis | FOLIO',
+    title: 'Modelos de Currículo Prontos para Preencher e Baixar em PDF Grátis | FOLIO',
     description:
-      'Conheça os 5 modelos de currículo profissional do FOLIO (Essencial, Editorial, Clássico, Executivo e Técnico). Escolha seu modelo de currículo para baixar e imprimir em PDF A4 gratuitamente.',
+      'Escolha entre 5 modelos de currículo prontos para preencher online (Essencial, Editorial, Clássico, Executivo e Técnico) e baixe grátis em PDF A4 para imprimir.',
     canonicalUrl: `${BASE_ORIGIN}/modelos-de-curriculo`,
     robots: 'index, follow',
     ogType: 'website',
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'ItemList',
-      name: 'Biblioteca de 5 Modelos de Currículo Profissional A4 — FOLIO',
+      name: '5 Modelos de Currículo Prontos para Preencher e Baixar em PDF — FOLIO',
       url: `${BASE_ORIGIN}/modelos-de-curriculo`,
       numberOfItems: 5,
       itemListElement: [
         {
           '@type': 'ListItem',
           position: 1,
-          name: 'M·01 Essencial — Modelo de Currículo Linear compatível com ATS',
+          name: 'M·01 Essencial — Modelo de Currículo Simples e Linear compatível com ATS',
         },
         {
           '@type': 'ListItem',
           position: 2,
-          name: 'M·02 Editorial — Modelo de Currículo em Duas Colunas Assimétricas',
+          name: 'M·02 Editorial — Modelo de Currículo Moderno em Duas Colunas',
         },
         {
           '@type': 'ListItem',
@@ -119,16 +166,16 @@ export const ROUTE_SEO_CONFIG: Record<AppRouteView, RouteSEOMetadata> = {
   'curriculo-primeiro-emprego': {
     view: 'curriculo-primeiro-emprego',
     path: '/curriculo-primeiro-emprego',
-    title: 'Currículo para Primeiro Emprego e Jovem Aprendiz: Guia e Modelo PDF Grátis | FOLIO',
+    title: 'Currículo Primeiro Emprego e Jovem Aprendiz: Modelo Pronto em PDF Grátis | FOLIO',
     description:
-      'Saiba como fazer um currículo para primeiro emprego ou estágio. Exemplos reais de objetivo profissional, como destacar estudos e cursos, e gerador gratuito para criar currículo em PDF A4.',
+      'Veja como fazer currículo para primeiro emprego, jovem aprendiz ou estágio. Exemplos de objetivo profissional e modelo pronto para preencher e baixar grátis em PDF.',
     canonicalUrl: `${BASE_ORIGIN}/curriculo-primeiro-emprego`,
     robots: 'index, follow',
     ogType: 'article',
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'Article',
-      headline: 'Como Fazer um Currículo para Primeiro Emprego e Estágio em Formato A4',
+      headline: 'Como Fazer um Currículo para Primeiro Emprego, Jovem Aprendiz e Estágio',
       inLanguage: 'pt-BR',
       author: { '@type': 'Organization', name: 'FOLIO' },
       url: `${BASE_ORIGIN}/curriculo-primeiro-emprego`,
@@ -137,16 +184,16 @@ export const ROUTE_SEO_CONFIG: Record<AppRouteView, RouteSEOMetadata> = {
   'curriculo-sem-experiencia': {
     view: 'curriculo-sem-experiencia',
     path: '/curriculo-sem-experiencia',
-    title: 'Currículo Sem Experiência: O Que Colocar e Como Fazer Online Grátis | FOLIO',
+    title: 'Currículo Sem Experiência: Modelo Pronto e Como Fazer Grátis em PDF | FOLIO',
     description:
-      'Guia prático para montar um currículo sem experiência formal em carteira. Aprenda a transformar formação, cursos livres, projetos acadêmicos e trabalho voluntário em qualificações claras.',
+      'Aprenda o que colocar no currículo sem experiência formal. Destaque escolaridade, cursos, projetos e trabalho voluntário e baixe seu currículo pronto em PDF grátis.',
     canonicalUrl: `${BASE_ORIGIN}/curriculo-sem-experiencia`,
     robots: 'index, follow',
     ogType: 'article',
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'Article',
-      headline: 'Currículo Sem Experiência Formal: Estrutura e Estratégia Editorial',
+      headline: 'Currículo Sem Experiência: O Que Colocar e Como Montar Online Grátis',
       inLanguage: 'pt-BR',
       author: { '@type': 'Organization', name: 'FOLIO' },
       url: `${BASE_ORIGIN}/curriculo-sem-experiencia`,
@@ -155,38 +202,38 @@ export const ROUTE_SEO_CONFIG: Record<AppRouteView, RouteSEOMetadata> = {
   'como-fazer-um-curriculo': {
     view: 'como-fazer-um-curriculo',
     path: '/como-fazer-um-curriculo',
-    title: 'Como Fazer um Currículo Passo a Passo: Estrutura A4 e Redação | FOLIO',
+    title: 'Como Fazer um Currículo Simples e Profissional Passo a Passo (PDF Grátis) | FOLIO',
     description:
-      'Aprenda como fazer um currículo profissional passo a passo: estrutura das 9 seções, dicas de redação objetiva, o que evitar e como exportar um currículo para imprimir ou enviar em PDF.',
+      'Guia passo a passo de como fazer um currículo simples e profissional: o que colocar em cada seção, dicas de redação e gerador online gratuito para baixar em PDF.',
     canonicalUrl: `${BASE_ORIGIN}/como-fazer-um-curriculo`,
     robots: 'index, follow',
     ogType: 'article',
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'HowTo',
-      name: 'Como Fazer um Currículo Profissional em Formato A4',
+      name: 'Como Fazer um Currículo Simples e Profissional em PDF',
       inLanguage: 'pt-BR',
       step: [
-        { '@type': 'HowToStep', name: 'Escolha uma matriz tipográfica adequada à sua área' },
+        { '@type': 'HowToStep', name: 'Escolha um modelo de currículo pronto adequado à sua área' },
         { '@type': 'HowToStep', name: 'Preencha dados de contato objetivos e objetivo profissional' },
         { '@type': 'HowToStep', name: 'Estruture experiências, formação, cursos e habilidades' },
-        { '@type': 'HowToStep', name: 'Exporte em PDF vetorial A4 com texto selecionável' },
+        { '@type': 'HowToStep', name: 'Baixe grátis em PDF A4 pronto para enviar ou imprimir' },
       ],
     },
   },
   'curriculo-profissional': {
     view: 'curriculo-profissional',
     path: '/curriculo-profissional',
-    title: 'Currículo Profissional para Imprimir ou Enviar em PDF Vetorial | FOLIO',
+    title: 'Currículo Profissional Pronto para Imprimir ou Enviar em PDF Grátis | FOLIO',
     description:
-      'Construa um currículo profissional com direção de arte suíça, hierarquia tipográfica clara e texto vetorial selecionável para sistemas ATS. Ideal para recolocação, especialistas e gestores.',
+      'Crie um currículo profissional limpo, compatível com sistemas ATS e pronto para imprimir ou enviar em PDF. Ideal para recolocação, especialistas e cargos de liderança.',
     canonicalUrl: `${BASE_ORIGIN}/curriculo-profissional`,
     robots: 'index, follow',
     ogType: 'article',
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'Article',
-      headline: 'Padrões de Excelência para Currículo Profissional e Recolocação',
+      headline: 'Como Criar um Currículo Profissional em PDF para Recolocação e Liderança',
       inLanguage: 'pt-BR',
       author: { '@type': 'Organization', name: 'FOLIO' },
       url: `${BASE_ORIGIN}/curriculo-profissional`,

@@ -89,7 +89,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   Transforme sua trajetória profissional em um currículo que merece ser lido.
                 </p>
                 <p className="sm:col-span-5 text-sm text-ink-muted leading-relaxed border-l border-paper pl-4">
-                  Projetado com o rigor de uma publicação impressa para destacar sua história em processos seletivos, do primeiro estágio à liderança técnica.
+                  Faça seu currículo online grátis pelo celular ou computador: escolha entre 5 modelos prontos para preencher — do primeiro emprego à liderança — e baixe em PDF sem cadastro.
                 </p>
               </div>
 
