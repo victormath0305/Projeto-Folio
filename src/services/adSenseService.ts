@@ -189,6 +189,14 @@ export const adSenseService = {
       return false;
     }
 
+    // Se o script oficial do Google AdSense no <head> já carregou com sucesso, não há bloqueador ativo
+    if (
+      (window.adsbygoogle as unknown as { loaded?: boolean } | undefined)
+        ?.loaded === true
+    ) {
+      return false;
+    }
+
     // 1. Verificação por elemento isca (EasyList CSS hiding)
     try {
       const bait = document.createElement('div');
@@ -227,7 +235,7 @@ export const adSenseService = {
       await fetch(
         'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
         {
-          method: 'HEAD',
+          method: 'GET',
           mode: 'no-cors',
           cache: 'no-store',
           signal: controller?.signal,
