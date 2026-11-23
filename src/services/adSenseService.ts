@@ -194,7 +194,7 @@ export const adSenseService = {
       const bait = document.createElement('div');
       bait.className = 'adsbox ad-banner pub_300x250';
       bait.setAttribute('aria-hidden', 'true');
-      bait.style.position = 'fixed';
+      bait.style.position = 'absolute';
       bait.style.top = '-9999px';
       bait.style.left = '-9999px';
       bait.style.width = '1px';
@@ -205,7 +205,6 @@ export const adSenseService = {
       const computed = window.getComputedStyle(bait);
       const hiddenByCss =
         bait.offsetHeight === 0 ||
-        bait.offsetParent === null ||
         computed.display === 'none' ||
         computed.visibility === 'hidden';
 
