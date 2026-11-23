@@ -1,7 +1,3 @@
-# FOLIO — Gerador de Currículos Profissionais (ISO 216 A4)
-# Diretrizes de indexação e proteção de privacidade do usuário
-
-# Permissão explícita para o rastreador do Google AdSense nas páginas públicas
 User-agent: Mediapartners-Google
 Allow: /
 Disallow: /editor
@@ -18,8 +14,6 @@ Allow: /privacidade
 Allow: /termos-de-uso
 Allow: /contato
 Allow: /apoie
-
-# Rotas de edição pessoal não devem ser indexadas
 Disallow: /editor
 
 Sitemap: https://foliocurriculo.com.br/sitemap.xml
