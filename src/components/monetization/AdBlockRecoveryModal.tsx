@@ -86,7 +86,7 @@ export const AdBlockRecoveryModal: React.FC<AdBlockRecoveryModalProps> = ({
           </h2>
 
           <p>
-            O <strong className="text-ink">FOLIO</strong> foi criado para oferecer uma ferramenta gratuita para qualquer pessoa criar um currículo profissional, sem mensalidades, assinaturas ou limitações.
+            O <strong className="text-ink">FOLIO</strong> foi criado para oferecer uma ferramenta 100% gratuita para qualquer pessoa criar um currículo profissional, sem mensalidades, assinaturas ou limitações.
           </p>
 
           <p>
@@ -94,11 +94,11 @@ export const AdBlockRecoveryModal: React.FC<AdBlockRecoveryModalProps> = ({
           </p>
 
           <p>
-            Pode ficar tranquilo: os anúncios são discretos e não devem atrapalhar a criação do seu currículo.
+            Pode ficar tranquilo: nossos anúncios são discretos, aparecem apenas nas páginas informativas e não incomodam em nada a criação do seu currículo.
           </p>
 
           <p className="text-ink font-medium border-l-2 border-vermilion pl-3.5">
-            Se você utiliza Adblock ou outro bloqueador de anúncios, pedimos que desative o bloqueio para este site.
+            Se você utiliza Adblock ou outro bloqueador de anúncios, pedimos que desative o bloqueio para este site e nos ajude a manter o FOLIO 100% gratuito.
           </p>
 
           {/* Painel Expansível: "Como desativar meu Adblock" */}

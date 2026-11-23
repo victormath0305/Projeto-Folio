@@ -174,6 +174,79 @@ export const adSenseService = {
   },
 
   /**
+   * Detecta bloqueadores de anúncios (AdBlock, uBlock Origin, AdGuard, Brave Shields, DNS)
+   * de forma leve e sem falsos positivos em ambiente offline ou testes (jsdom).
+   */
+  async detectAdBlocker(): Promise<boolean> {
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
+      return false;
+    }
+    // Evita rodar em ambientes de teste (jsdom) ou quando o usuário está sem internet
+    if (
+      typeof navigator !== 'undefined' &&
+      (navigator.onLine === false || /jsdom/i.test(navigator.userAgent || ''))
+    ) {
+      return false;
+    }
+
+    // 1. Verificação por elemento isca (EasyList CSS hiding)
+    try {
+      const bait = document.createElement('div');
+      bait.className = 'adsbox ad-banner pub_300x250';
+      bait.setAttribute('aria-hidden', 'true');
+      bait.style.position = 'fixed';
+      bait.style.top = '-9999px';
+      bait.style.left = '-9999px';
+      bait.style.width = '1px';
+      bait.style.height = '1px';
+      bait.innerHTML = '&nbsp;';
+      document.body.appendChild(bait);
+
+      const computed = window.getComputedStyle(bait);
+      const hiddenByCss =
+        bait.offsetHeight === 0 ||
+        bait.offsetParent === null ||
+        computed.display === 'none' ||
+        computed.visibility === 'hidden';
+
+      document.body.removeChild(bait);
+      if (hiddenByCss) {
+        return true;
+      }
+    } catch {
+      // Segue para a verificação de rede
+    }
+
+    // 2. Verificação de bloqueio de rede do script oficial do Google AdSense
+    try {
+      const controller =
+        typeof AbortController !== 'undefined' ? new AbortController() : null;
+      const timeoutId = controller
+        ? window.setTimeout(() => controller.abort(), 3500)
+        : null;
+
+      await fetch(
+        'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
+        {
+          method: 'HEAD',
+          mode: 'no-cors',
+          cache: 'no-store',
+          signal: controller?.signal,
+        }
+      );
+
+      if (timeoutId !== null) window.clearTimeout(timeoutId);
+      return false;
+    } catch (err) {
+      // Ignora timeout de rede lenta (AbortError) para evitar falso positivo
+      if (err instanceof DOMException && err.name === 'AbortError') {
+        return false;
+      }
+      return true;
+    }
+  },
+
+  /**
    * Controle de dispensa (dismiss) do aviso de Adblock na sessão atual,
    * garantindo que o visitante não seja interrompido repetidamente a cada navegação.
    */

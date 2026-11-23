@@ -104,9 +104,29 @@ export function App() {
     const meta = applyRouteSEOMetadata(activeView);
     analyticsService.trackEvent('page_view', { route: meta.path });
 
-    // Inicializa a tag oficial de Ad Blocking Recovery (Funding Choices) quando configurada no ambiente
+    // Inicializa a tag oficial de Ad Blocking Recovery (Funding Choices) quando configurada no ambiente;
+    // caso contrário, executa a detecção leve do FOLIO em páginas públicas para exibir o modal editorial dispensável.
     if (adSenseService.isRouteAllowedForAds(activeView)) {
-      adSenseService.ensureOfficialAdBlockRecoveryLoaded();
+      const officialLoaded = adSenseService.ensureOfficialAdBlockRecoveryLoaded();
+      if (!officialLoaded && !adSenseService.isAdBlockNoticeDismissedInSession()) {
+        let cancelled = false;
+        const timerId = window.setTimeout(() => {
+          void adSenseService.detectAdBlocker().then((isBlocked) => {
+            if (
+              !cancelled &&
+              isBlocked &&
+              !adSenseService.isAdBlockNoticeDismissedInSession()
+            ) {
+              setAdBlockModalOpen(true);
+            }
+          });
+        }, 1800);
+
+        return () => {
+          cancelled = true;
+          window.clearTimeout(timerId);
+        };
+      }
     }
   }, [activeView]);
 
@@ -360,7 +380,12 @@ export function App() {
       {/* Modal: Comunicado de Sustentabilidade / Adblock Recovery (Dispensável) */}
       <AdBlockRecoveryModal
         isOpen={adBlockModalOpen}
-        onAllowAds={() => setAdBlockModalOpen(false)}
+        onAllowAds={() => {
+          setAdBlockModalOpen(false);
+          if (typeof window !== 'undefined') {
+            window.location.reload();
+          }
+        }}
         onDismiss={() => setAdBlockModalOpen(false)}
       />
     </div>
