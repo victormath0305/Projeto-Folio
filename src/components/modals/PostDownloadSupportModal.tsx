@@ -31,6 +31,17 @@ interface PostDownloadSupportModalProps {
  * - Contribuição voluntária via Pix com valor livre reaproveitando pixPayloadService.ts e SITE_CONFIG.pix.
  * - 100% dispensável ("Agora não", botão X ou Escape) com persistência versionada em storageService.
  */
+function isValidHttpsEndpoint(rawUrl: string): boolean {
+  const trimmed = rawUrl.trim();
+  if (!trimmed) return false;
+  try {
+    const parsed = new URL(trimmed);
+    return parsed.protocol === 'https:' && Boolean(parsed.hostname);
+  } catch {
+    return false;
+  }
+}
+
 export const PostDownloadSupportModal: React.FC<PostDownloadSupportModalProps> = ({
   isOpen,
   onClose,
@@ -38,8 +49,11 @@ export const PostDownloadSupportModal: React.FC<PostDownloadSupportModalProps> =
   feedbackEndpointOverride,
 }) => {
   const activePixConfig = pixConfigOverride ?? SITE_CONFIG.pix;
-  const feedbackEndpoint =
+  const rawFeedbackEndpoint =
     (feedbackEndpointOverride ?? SITE_CONFIG.feedbackEndpointUrl).trim();
+  const feedbackEndpoint = isValidHttpsEndpoint(rawFeedbackEndpoint)
+    ? rawFeedbackEndpoint
+    : '';
 
   const [rating, setRating] = useState<number>(0);
   const [hoveredRating, setHoveredRating] = useState<number>(0);

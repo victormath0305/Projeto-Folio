@@ -207,7 +207,7 @@ export const adSenseService = {
       bait.style.left = '-9999px';
       bait.style.width = '1px';
       bait.style.height = '1px';
-      bait.innerHTML = '&nbsp;';
+      bait.textContent = '\u00A0';
       document.body.appendChild(bait);
 
       const computed = window.getComputedStyle(bait);
