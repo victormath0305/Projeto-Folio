@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Camera, Trash2 } from 'lucide-react';
+import { processAndSanitizePhotoFile } from '../../../services/imageSecurityService';
 import { PersonalInfo } from '../../../types/resume';
 import { validateEmailFormat, validatePhoneFormat } from '../editorConfig';
 
@@ -20,34 +21,23 @@ export const PersonalSectionForm: React.FC<PersonalSectionFormProps> = ({
   const emailWarning = validateEmailFormat(personal.email);
   const phoneWarning = validatePhoneFormat(personal.phone);
 
-  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     setPhotoError(null);
     if (!file) return;
 
-    const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/webp'];
-    if (!allowedMimeTypes.includes(file.type)) {
-      setPhotoError('Selecione um arquivo de imagem seguro nos formatos JPG, PNG ou WebP.');
-      return;
-    }
-
-    if (file.size > 2 * 1024 * 1024) {
-      setPhotoError('A imagem deve ter no máximo 2 MB para armazenamento local eficiente.');
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (
-        typeof reader.result === 'string' &&
-        /^data:image\/(jpeg|jpg|png|webp);base64,/i.test(reader.result)
-      ) {
-        onChange({ photoUrl: reader.result });
-      } else {
-        setPhotoError('Não foi possível validar o conteúdo da imagem selecionada.');
+    const result = await processAndSanitizePhotoFile(file);
+    if (result.ok && result.dataUrl) {
+      onChange({ photoUrl: result.dataUrl });
+    } else {
+      setPhotoError(
+        result.error ||
+          'Não foi possível validar o conteúdo da imagem selecionada.'
+      );
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
       }
-    };
-    reader.readAsDataURL(file);
+    }
   };
 
   if (mode === 'objetivo') {
