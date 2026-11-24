@@ -30,7 +30,17 @@ export interface AdSenseConfig {
   requireConsent: boolean;
 }
 
-export const SITE_CONFIG = {
+function deepFreeze<T>(value: T): T {
+  if (value && typeof value === 'object' && !Object.isFrozen(value)) {
+    Object.freeze(value);
+    for (const key of Object.keys(value as Record<string, unknown>)) {
+      deepFreeze((value as Record<string, unknown>)[key]);
+    }
+  }
+  return value;
+}
+
+export const SITE_CONFIG = deepFreeze({
   /** Nome oficial do produto */
   productName: 'FOLIO',
   /** Proposta comercial principal */
@@ -67,7 +77,9 @@ export const SITE_CONFIG = {
    * Nunca armazena senhas, tokens ou credenciais bancárias no frontend e nunca é enviada para analytics.
    */
   pix: {
-    pixKey: (env.VITE_PIX_KEY || '85124478004').trim(),
+    pixKey: (
+      env.VITE_PIX_KEY || '55cbf14e-ee90-4b56-addf-9382267cf9a9'
+    ).trim(),
     recipientName: (
       env.VITE_PIX_RECIPIENT_NAME || 'Victor Matheus Barros Trindade'
     ).trim(),
@@ -80,4 +92,4 @@ export const SITE_CONFIG = {
 
   /** Versão da aplicação */
   version: '1.0.0',
-} as const;
+} as const);
